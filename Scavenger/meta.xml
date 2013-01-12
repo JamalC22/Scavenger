@@ -1,4 +1,4 @@
 <meta>
      <info author="The Nose Family" type="Scavenger" name="Jews Only" description="No Moneygrubbing" />
-     <script src="Main.lua" />
+     <script src="Scavenger.lua" />
 </meta>
