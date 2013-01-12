@@ -5,10 +5,8 @@
 		<setting name="*StreamMethod" value="[1]" /> <!-- 1 to constantly stream zombies, 0 to only allow zombies to spawn via createZombie function, 2 to only allow spawning at set spawnpoints -->
 		<setting name="*Speed" value="[0]" /> <!-- 0 is slowest, 1 is normal, 2 faster -->
 	</settings>
-     
-	 <info author="The Nose Family" type="Scavenger" name="Jews Only" description="No Moneygrubbing" />
-     <script src="Scavenger.lua" />
-	 <script src="zombie_server.lua" />
+	<info author="The Nose Family" type="Scavenger" name="Jews Only" description="No Moneygrubbing" />
+	<script src="zombie_server.lua" />
 	<script src="zombie_client.lua" type="client"/>
 	
 	<file src="zombiewood.png" />
