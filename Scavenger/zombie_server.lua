@@ -679,3 +679,25 @@ function ZombieTargetCoords ( x,y,z )
 	setElementData ( source, "Tz", z, false )
 end
 addEventHandler( "onZombieLostPlayer", getRootElement(), ZombieTargetCoords )
+
+local bRegisteredOnce = false
+ 
+function registerPlayer ( source, commandName, username, password )
+        if(password ~= "" and password ~= nil and username ~= "" and username ~= nil and bRegisteredOnce == false) then
+                local accountAdded = addAccount(username,password)
+                if(accountAdded) then
+                        outputChatBox("Thank you " .. getPlayerName(source) .. ", you're now registed, you can login with /login",source)
+                        bRegisteredOnce = true
+                else
+                        outputChatBox("Error creating account, contact the server admin.",source)
+                end
+        else
+                if bRegisteredOnce == true then
+                    outputChatBox("You already registered on this server!",source)
+                else
+                    outputChatBox("Error creating account, correct syntax: /register <nick> <pass>",source)
+                end
+        end
+end
+addCommandHandler ( "register", registerPlayer ) -- add the command handler
+
