@@ -2,6 +2,13 @@ myZombies = { }
 helmetzombies = { 27, 51, 52, 99, 27, 137, 153, 167, 205, 260, 277, 278, 279, 284, 285 }
 resourceRoot = getResourceRootElement()
 
+--Create LoginGUI
+function createLoginGUI ()
+	loginGUI = guiCreateWindow ( 0.5, 0.5, 0.2, 0.2, "Login", true )
+	guiSetVisible(loginGUI, true)
+	outputChatBox("TEST, TEST")
+end
+
 --FORCES ZOMBIES TO MOVE ALONG AFTER THEIR TARGET PLAYER DIES
 function playerdead ()
 	setTimer ( Zomb_release, 4000, 1 )

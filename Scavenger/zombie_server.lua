@@ -1,8 +1,37 @@
-ZombieLimit = get("zombies.MaxZombies")-- HOW MANY ZOMBIES SHOULD EXIST AT MAXIMUM?
-ZombieStreaming = get("zombies.StreamMethod") -- 1 to constantly stream zombies, 0 to only allow zombies to spawn via createZombie function, 2 to only allow spawning at set spawnpoints
-ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 } --ALTERNATE SKIN LISTS FOR ZOMBIES (SHORTER LIST IS TEXTURED ZOMBIES ONLY)
---ZombiePedSkins = {7,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,44,45,36,37,38,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,66,67,68,69,70,71,72,73,75,76,77,78,79,80,81,82,83,85,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,112,113,114,115,116,117,118,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,150,151,152,153,154,155,156,157,158,159,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,209,210,211,212,213,214,215,216,217,218,219,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,275,276,277,278,279,280,281,282,283,284,285,286,287,288 }
+--1 to constantly stream zombies, 0 to only allow zombies to spawn via createZombie function, 2 to only allow spawning at set spawnpoints
+ZombieStreaming = get("zombies.StreamMethod")
+--Maximum zombies
+ZombieLimit = get("zombies.MaxZombies")
+--Zombie speed
 ZombieSpeed = get("zombies.Speed")
+--Skin IDs
+ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
+
+function spawnHandler ()
+	spawnPlayer(source, 1959.55, -1714.46, 18)
+	giveWeapon ( source, 38, 5000, true )
+	fadeCamera(source, true)
+	setCameraTarget(source, source)		
+end
+
+function loginHandler ()
+	
+end
+
+function quitHandler ()
+	logout(source)
+end
+
+function joinHandler()
+	outputChatBox("Jews only and please, no moneygrubbing", source)
+	spawnHandler ()
+end
+
+addEventHandler ( "onPlayerLogin", getRootElement(), spawnHandler)
+addEventHandler ( "onPlayerWasted", getRootElement(), spawnHandler)
+addEventHandler ( "onPlayerJoin", getRootElement(), joinHandler )
+addEventHandler ( "onPlayerQuit", getRootElement(), quitHandler )
+
 if ZombieSpeed == 0 then --super slow zombies (goofy looking)
 	chaseanim = "WALK_drunk"
 	checkspeed = 2000
@@ -679,25 +708,3 @@ function ZombieTargetCoords ( x,y,z )
 	setElementData ( source, "Tz", z, false )
 end
 addEventHandler( "onZombieLostPlayer", getRootElement(), ZombieTargetCoords )
-
-local bRegisteredOnce = false
- 
-function registerPlayer ( source, commandName, username, password )
-        if(password ~= "" and password ~= nil and username ~= "" and username ~= nil and bRegisteredOnce == false) then
-                local accountAdded = addAccount(username,password)
-                if(accountAdded) then
-                        outputChatBox("Thank you " .. getPlayerName(source) .. ", you're now registed, you can login with /login",source)
-                        bRegisteredOnce = true
-                else
-                        outputChatBox("Error creating account, contact the server admin.",source)
-                end
-        else
-                if bRegisteredOnce == true then
-                    outputChatBox("You already registered on this server!",source)
-                else
-                    outputChatBox("Error creating account, correct syntax: /register <nick> <pass>",source)
-                end
-        end
-end
-addCommandHandler ( "register", registerPlayer ) -- add the command handler
-
