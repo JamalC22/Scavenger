@@ -843,3 +843,13 @@ function ZombieTargetCoords ( x,y,z )
 	setElementData ( source, "Tz", z, false )
 end
 addEventHandler( "onZombieLostPlayer", getRootElement(), ZombieTargetCoords )
+
+function kickPlayerHandler( sourcePlayer, commandname, kickedname, reason )
+	local kicked = getPlayerFromName( kickedname )
+	
+	if( hasObjectPermissionTo( sourceplayer, "function.kickPlayer" ) ) then
+		kickPlayer( kicked, sourcePlayer, reason)
+	end
+end
+
+addCommandHandler( "kick", kickPlayerHandler )
