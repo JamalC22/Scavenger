@@ -7,6 +7,20 @@ ZombieSpeed = get("zombies.Speed")
 --Skin IDs
 ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
 
+function kickPlayerHandler( playerSource, command, name, reason )
+	if name and reason then
+		local kickedPlayer = getPlayerFromName( name )
+		if kickedPlayer then
+			kickPlayer( kickedPlayer, reason )
+		else
+			outputChatBox("Couldn't find player", playerSource)
+		end
+	else
+		outputChatBox("Syntax: /kick-player name, reason", playerSource)
+	end
+end
+addCommandHandler( "kick-player", kickPlayerHandler )
+
 function wastedHandler ( totalAmmo, killer, killerWeapon, bodypart )
 	local playerMoney = getPlayerMoney(source)
 	if playerMoney and playerMoney > 100 then
@@ -843,13 +857,3 @@ function ZombieTargetCoords ( x,y,z )
 	setElementData ( source, "Tz", z, false )
 end
 addEventHandler( "onZombieLostPlayer", getRootElement(), ZombieTargetCoords )
-
-function kickPlayerHandler( sourcePlayer, commandname, kickedname, reason )
-	local kicked = getPlayerFromName( kickedname )
-	
-	if( hasObjectPermissionTo( sourceplayer, "function.kickPlayer" ) ) then
-		kickPlayer( kicked, sourcePlayer, reason)
-	end
-end
-
-addCommandHandler( "kick", kickPlayerHandler )
