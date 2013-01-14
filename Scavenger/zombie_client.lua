@@ -2,6 +2,8 @@ myZombies = { }
 helmetzombies = { 27, 51, 52, 99, 27, 137, 153, 167, 205, 260, 277, 278, 279, 284, 285 }
 resourceRoot = getResourceRootElement()
 
+killCount = 0
+
 --Create LoginGUI
 loginGUI = guiCreateWindow ( 0, 0, 220, 175, "Login", false )
 --Username box
@@ -14,7 +16,8 @@ loginPasswordBox = guiCreateEdit (10, 100, 200, 25, "", false, loginGUI )
 guiEditSetMasked(loginPasswordBox, true)
 guiEditSetMaxLength(loginPasswordBox, 30)
 --Login button
-loginButton = guiCreateButton(10, 135, 200, 25, "Login", false, loginGUI )
+confirmLoginButton = guiCreateButton(10, 135, 95, 25, "Login", false, loginGUI )
+registerButton = guiCreateButton(115, 135, 95, 25, "Register", false, loginGUI )
 --LoginGUI Settings
 guiSetAlpha(loginGUI,100)
 guiSetVisible(loginGUI,true)
@@ -34,7 +37,7 @@ registerPasswordBox = guiCreateEdit (10, 100, 200, 25, "", false, registerGUI )
 guiEditSetMasked(registerPasswordBox, true)
 guiEditSetMaxLength(registerPasswordBox, 30)
 --Login button
-registerButton = guiCreateButton(10, 135, 200, 25, "Register", false, registerGUI )
+confirmRegisterButton = guiCreateButton(10, 135, 200, 25, "Register", false, registerGUI )
 --RegisterGUI Settings
 guiSetAlpha(registerGUI,100)
 guiSetVisible(registerGUI,false)
@@ -56,17 +59,30 @@ guiSetPosition (messageGUI, 0.4, 0.4, true)
 guiBringToFront(loginGUI)
 showCursor(true)
 
+function showRegister ( )
+	guiSetVisible(loginGUI, false)
+	guiSetVisible(registerGUI, true)
+	guiBringToFront(registerGUI)
+	guiBringToFront(registerUsernameBox)
+end
+addEventHandler("onClientGUIClick", registerButton, showRegister)
+
+function showError ( message )
+	guiSetText( messageGUIMessage, message )
+	guiSetVisible(messageGUI, true)
+end 
+
 function attemptLogin ()
 triggerServerEvent ( "onAttemptLogin", getLocalPlayer(), guiGetText(loginUsernameBox), guiGetText(loginPasswordBox) )
 end
-addEventHandler("onClientGUIClick", loginButton, attemptLogin)
+addEventHandler("onClientGUIClick", confirmLoginButton, attemptLogin)
 addEventHandler("onClientGUIAccepted", loginPasswordBox, attemptLogin)
 
 function attemptRegister ()
 triggerServerEvent ( "onAttemptRegister", getLocalPlayer(), guiGetText(registerUsernameBox), guiGetText(registerPasswordBox) )
 end
-addEventHandler("onClientGUIClick", registerButton, attemptRegister)
-addEventHandler("onClientGUIAccepted", registerPasswordBox, attemptLogin)
+addEventHandler("onClientGUIClick", confirmRegisterButton, attemptRegister)
+addEventHandler("onClientGUIAccepted", registerPasswordBox, attemptRegister)
 
 addEvent("onSuccessfulLogin", true)
 function successfulLogin ()
@@ -78,13 +94,16 @@ addEventHandler("onSuccessfulLogin", getRootElement(), successfulLogin)
 
 addEvent("onUnsuccessfulLogin", true)
 function unsuccessfulLogin ( reason )
-guiSetVisible(loginGUI, false)
-guiSetVisible(registerGUI, true)
-guiSetText( messageGUIMessage, reason )
-guiSetVisible(messageGUI, true)
+	showRegister( )
+	showError( reason )
 end
 addEventHandler("onUnsuccessfulLogin", getRootElement(), unsuccessfulLogin)
 
+addEvent("onZombieWasted", true)
+function handleZombieWasted ( count )
+	killCount = count
+end
+addEventHandler ( "onZombieWasted", getRootElement(), handleZombieWasted )
 
 --FORCES ZOMBIES TO MOVE ALONG AFTER THEIR TARGET PLAYER DIES
 function playerdead ()
@@ -429,9 +448,8 @@ addEventHandler ( "onClientColShapeLeave", getRootElement(), hidewoodpic )
 --ZOMBIES ATTACK FROM BEHIND AND GUI STUFF
 function movethroatcol ()
 	local screenWidth, screenHeight = guiGetScreenSize()
-	local dcount = tostring(table.getn( myZombies ))
-	dxDrawText( dcount, screenWidth-40, screenHeight -50, screenWidth, screenHeight, tocolor ( 0, 0, 0, 255 ), 1.44, "pricedown" )
-	dxDrawText( dcount, screenWidth-42, screenHeight -52, screenWidth, screenHeight, tocolor ( 255, 255, 255, 255 ), 1.4, "pricedown" )
+	dxDrawText( killCount, screenWidth-40, screenHeight -50, screenWidth, screenHeight, tocolor ( 0, 0, 0, 255 ), 1.44, "pricedown" )
+	dxDrawText( killCount, screenWidth-42, screenHeight -52, screenWidth, screenHeight, tocolor ( 255, 255, 255, 255 ), 1.4, "pricedown" )
 	
 	if isElement(throatcol) then
 		local playerrot = getPedRotation ( getLocalPlayer () )

@@ -7,7 +7,21 @@ ZombieSpeed = get("zombies.Speed")
 --Skin IDs
 ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
 
-function wastedHandler ( source )
+function wastedHandler ( totalAmmo, killer, killerWeapon, bodypart )
+	local playerMoney = getPlayerMoney(source)
+	if playerMoney and playerMoney > 100 then
+		takePlayerMoney(source, playerMoney / 4)
+		if(killer) then
+			if getElementType ( killer ) == "player" then
+				givePlayerMoney(killer, playerMoney / 4)
+			end
+		end
+	end
+	local playerKillCount = getElementData ( source, "Zombie kills")
+	if playerKillCount and playerKillCount > 0 then
+		setElementData ( source, "Zombie kills", 0  )
+		triggerClientEvent("onZombieWasted", getRootElement(), 0 )
+	end
 	spawnHandler ( source )
 end
 
@@ -39,6 +53,18 @@ function quitHandler ()
 			setAccountData ( playeraccount, "zombies.playerhealth", playerHealth )
 		else
 			setAccountData ( playeraccount, "zombies.playerhealth", 1.0 )
+		end
+		local playerMoney = getPlayerMoney(source)
+		if(playerMoney) then
+			setAccountData ( playeraccount, "zombies.playermoney", playerMoney )
+		else
+			setAccountData ( playeraccount, "zombies.playermoney", 0 )
+		end
+		local playerKillCount = getElementData ( source, "Zombie kills")
+		if playerKillCount then
+			setAccountData ( playeraccount, "zombies.killcount", playerKillCount )
+		else
+			setAccountData ( playeraccount, "zombies.killcount", 0 )
 		end
 	end
 	logOut(source)
@@ -96,10 +122,19 @@ function loadAccountData ( account )
 					giveWeapon(player, weaponID, weaponAmmo)
 				end
 			end
-		end
-		local playerHealth = getAccountData(account, "zombies.playerhealth")
-		if(playerHealth) then
-			setElementHealth(player, playerHealth)
+			local playerHealth = getAccountData(account, "zombies.playerhealth")
+			if(playerHealth) then
+				setElementHealth(player, playerHealth)
+			end
+			local playerMoney = getAccountData(account, "zombies.playermoney")
+			if(playerMoney) then
+				setPlayerMoney (player, playerMoney)
+			end
+			local playerKillCount = getAccountData(account, "zombies.killcount")
+			if(playerKillCount) then
+				setElementData ( player, "Zombie kills", playerKillCount  )
+				triggerClientEvent("onZombieWasted", getRootElement(), playerKillCount)
+			end
 		end
 	end
 end
@@ -109,14 +144,24 @@ function gibwep ( playerSource, command, weaponID, weaponAmmo )
 		if weaponID and weaponAmmo then
 			giveWeapon(playerSource, weaponID, weaponAmmo )
 		else
-			outputChatBox("Sytax: ID, AMMO", playerSource)
+			giveWeapon(playerSource, 38, 5000 )
 		end
 	end
 end
 addCommandHandler("gibwep", gibwep, false, false)
 
+function zombieWastedHandler ( attacker, weapon, bodypart )
+	local killCount = getElementData ( attacker, "Zombie kills" )
+	if killCount then
+		triggerClientEvent("onZombieWasted", getRootElement(), killCount)
+	end
+	givePlayerMoney ( attacker, 5 + math.random(5) )
+end
+
 addEvent("onAttemptLogin", true)
 addEvent("onAttemptRegister", true)
+addEvent("onZombieWasted", false)
+addEventHandler ( "onZombieWasted", getRootElement(), zombieWastedHandler)
 addEventHandler ( "onAttemptRegister", getRootElement(), attemptRegister)
 addEventHandler ( "onAttemptLogin", getRootElement(), attemptLogin)
 addEventHandler ( "onPlayerWasted", getRootElement(), wastedHandler)
