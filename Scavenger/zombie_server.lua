@@ -13,7 +13,7 @@ function kickPlayerHandler( playerSource, command, name, reason )
 		if kickedPlayer then
 			kickPlayer( kickedPlayer, reason )
 		else
-			outputChatBox("Couldn't find player", playerSource)
+			outputChatBox("Couldn't find player.", playerSource)
 		end
 	else
 		outputChatBox("Syntax: /kick-player name, reason", playerSource)
