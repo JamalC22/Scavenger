@@ -3,11 +3,88 @@ helmetzombies = { 27, 51, 52, 99, 27, 137, 153, 167, 205, 260, 277, 278, 279, 28
 resourceRoot = getResourceRootElement()
 
 --Create LoginGUI
-function createLoginGUI ()
-	loginGUI = guiCreateWindow ( 0.5, 0.5, 0.2, 0.2, "Login", true )
-	guiSetVisible(loginGUI, true)
-	outputChatBox("TEST, TEST")
+loginGUI = guiCreateWindow ( 0, 0, 220, 175, "Login", false )
+--Username box
+guiCreateLabel(10, 28, 200, 25, "Username:", false, loginGUI)
+loginUsernameBox = guiCreateEdit (10, 50, 200, 25, "", false, loginGUI )
+guiEditSetMaxLength(loginUsernameBox, 30)
+--Password box
+guiCreateLabel(10, 78, 200, 25, "Password:", false, loginGUI)
+loginPasswordBox = guiCreateEdit (10, 100, 200, 25, "", false, loginGUI )
+guiEditSetMasked(loginPasswordBox, true)
+guiEditSetMaxLength(loginPasswordBox, 30)
+--Login button
+loginButton = guiCreateButton(10, 135, 200, 25, "Login", false, loginGUI )
+--LoginGUI Settings
+guiSetAlpha(loginGUI,100)
+guiSetVisible(loginGUI,true)
+guiWindowSetSizable(loginGUI, false)
+guiSetPosition (loginGUI, 0.4, 0.4, true)
+guiBringToFront(loginUsernameBox)
+
+--Create RegisterGUI
+registerGUI = guiCreateWindow ( 0, 0, 220, 175, "Register", false )
+--Username box
+guiCreateLabel(10, 28, 200, 25, "Username:", false, registerGUI)
+registerUsernameBox = guiCreateEdit (10, 50, 200, 25, "", false, registerGUI )
+guiEditSetMaxLength(registerUsernameBox, 30)
+--Password box
+guiCreateLabel(10, 78, 200, 25, "Password:", false, registerGUI)
+registerPasswordBox = guiCreateEdit (10, 100, 200, 25, "", false, registerGUI )
+guiEditSetMasked(registerPasswordBox, true)
+guiEditSetMaxLength(registerPasswordBox, 30)
+--Login button
+registerButton = guiCreateButton(10, 135, 200, 25, "Register", false, registerGUI )
+--RegisterGUI Settings
+guiSetAlpha(registerGUI,100)
+guiSetVisible(registerGUI,false)
+guiWindowSetSizable(registerGUI, false)
+guiSetPosition (registerGUI, 0.4, 0.4, true)
+
+--Create MessageGUI
+messageGUI = guiCreateWindow(0, 0, 200, 100, "Error", false)
+messageGUIMessage = guiCreateLabel(25, 25, 180, 25, "Message", false, messageGUI)
+messageGUIButton = guiCreateButton(25, 60, 180, 25, "OK", false, messageGUI)
+function closeMessage ()
+guiSetVisible(messageGUI, false)
 end
+addEventHandler("onClientGUIClick", messageGUIButton, closeMessage)
+guiSetAlpha(messageGUI,100)
+guiSetVisible(messageGUI,false)
+guiSetPosition (messageGUI, 0.4, 0.4, true)
+
+guiBringToFront(loginGUI)
+showCursor(true)
+
+function attemptLogin ()
+triggerServerEvent ( "onAttemptLogin", getLocalPlayer(), guiGetText(loginUsernameBox), guiGetText(loginPasswordBox) )
+end
+addEventHandler("onClientGUIClick", loginButton, attemptLogin)
+addEventHandler("onClientGUIAccepted", loginPasswordBox, attemptLogin)
+
+function attemptRegister ()
+triggerServerEvent ( "onAttemptRegister", getLocalPlayer(), guiGetText(registerUsernameBox), guiGetText(registerPasswordBox) )
+end
+addEventHandler("onClientGUIClick", registerButton, attemptRegister)
+addEventHandler("onClientGUIAccepted", registerPasswordBox, attemptLogin)
+
+addEvent("onSuccessfulLogin", true)
+function successfulLogin ()
+guiSetVisible(loginGUI, false)
+guiSetVisible(registerGUI, false)
+showCursor(false)
+end
+addEventHandler("onSuccessfulLogin", getRootElement(), successfulLogin)
+
+addEvent("onUnsuccessfulLogin", true)
+function unsuccessfulLogin ( reason )
+guiSetVisible(loginGUI, false)
+guiSetVisible(registerGUI, true)
+guiSetText( messageGUIMessage, reason )
+guiSetVisible(messageGUI, true)
+end
+addEventHandler("onUnsuccessfulLogin", getRootElement(), unsuccessfulLogin)
+
 
 --FORCES ZOMBIES TO MOVE ALONG AFTER THEIR TARGET PLAYER DIES
 function playerdead ()

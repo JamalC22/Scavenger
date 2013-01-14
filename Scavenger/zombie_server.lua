@@ -7,29 +7,119 @@ ZombieSpeed = get("zombies.Speed")
 --Skin IDs
 ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
 
-function spawnHandler ()
-	spawnPlayer(source, 1959.55, -1714.46, 18)
-	giveWeapon ( source, 38, 5000, true )
+function wastedHandler ( source )
+	spawnHandler ( source )
+end
+
+function spawnHandler ( x, y, z )
+	if x and y and z then
+		spawnPlayer(source, x, y, z)
+	else
+		spawnPlayer(source, 1959.55, -1714.46, 18)
+	end
 	fadeCamera(source, true)
 	setCameraTarget(source, source)		
 end
 
-function loginHandler ()
-	
-end
-
 function quitHandler ()
-	logout(source)
+	local playeraccount = getPlayerAccount ( source )
+	if playeraccount and not isGuestAccount ( playeraccount ) then
+		local x, y, z = getElementPosition( source )
+		setAccountData ( playeraccount, "zombies.pX", x )
+		setAccountData ( playeraccount, "zombies.pY", y )
+		setAccountData ( playeraccount, "zombies.pZ", z )
+		for index = 0, 12, 1 do
+			local weaponID = getPedWeapon	( source, index)
+			local weaponAmmo = getPedTotalAmmo ( source, index )
+			setAccountData ( playeraccount, "zombies.weaponid" .. index, weaponID )
+			setAccountData ( playeraccount, "zombies.weaponammo" .. index, weaponAmmo )
+		end
+		local playerHealth = getElementHealth(source)
+		if playerHealth then
+			setAccountData ( playeraccount, "zombies.playerhealth", playerHealth )
+		else
+			setAccountData ( playeraccount, "zombies.playerhealth", 1.0 )
+		end
+	end
+	logOut(source)
 end
 
-function joinHandler()
-	outputChatBox("Jews only and please, no moneygrubbing", source)
-	spawnHandler ()
+function attemptLogin ( username, password )
+	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then
+		local account = getAccount( username, password )
+		if not account then
+			triggerClientEvent ( "onUnsuccessfulLogin", getRootElement(), "Account not found" )
+		else
+			triggerClientEvent ( "onSuccessfulLogin", getRootElement())
+			logIn (source, account, password)
+			loadAccountData( account )
+		end
+	end
 end
 
-addEventHandler ( "onPlayerLogin", getRootElement(), spawnHandler)
-addEventHandler ( "onPlayerWasted", getRootElement(), spawnHandler)
-addEventHandler ( "onPlayerJoin", getRootElement(), joinHandler )
+function  attemptRegister ( username, password )
+	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then
+		local account = getAccount( username, password )
+		if account then
+			triggerClientEvent ( "onSuccessfulLogin", getRootElement())
+			logIn (source, account, password)
+			loadAccountData( account )
+		else
+			if addAccount(username, password) ~= false then
+				triggerClientEvent ( "onSuccessfulLogin", getRootElement())
+				spawnHandler()
+			else
+				triggerClientEvent ( "onUnsuccessfulLogin", getRootElement(), "Failed to create account" )
+			end
+		end
+	else
+		triggerClientEvent ( "onUnsuccessfulLogin", getRootElement(), "Invalid login data" )
+	end
+end
+
+function loadAccountData ( account )
+	if account then
+		local x = getAccountData(account, "zombies.pX")
+		local y = getAccountData(account, "zombies.pY")
+		local z = getAccountData(account, "zombies.pZ")
+		if x and y and z then
+			spawnHandler(x, y, z + 2)
+		else
+			spawnHandler()
+		end
+		local player = getAccountPlayer(account)
+		if player then
+			for index = 0, 12, 1 do
+				local weaponID = getAccountData(account, "zombies.weaponid" .. index)
+				local weaponAmmo = getAccountData(account, "zombies.weaponammo" .. index)
+				if weaponAmmo and weaponAmmo > 0 then
+					giveWeapon(player, weaponID, weaponAmmo)
+				end
+			end
+		end
+		local playerHealth = getAccountData(account, "zombies.playerhealth")
+		if(playerHealth) then
+			setElementHealth(player, playerHealth)
+		end
+	end
+end
+
+function gibwep ( playerSource, command, weaponID, weaponAmmo )
+	if playerSource then
+		if weaponID and weaponAmmo then
+			giveWeapon(playerSource, weaponID, weaponAmmo )
+		else
+			outputChatBox("Sytax: ID, AMMO", playerSource)
+		end
+	end
+end
+addCommandHandler("gibwep", gibwep, false, false)
+
+addEvent("onAttemptLogin", true)
+addEvent("onAttemptRegister", true)
+addEventHandler ( "onAttemptRegister", getRootElement(), attemptRegister)
+addEventHandler ( "onAttemptLogin", getRootElement(), attemptLogin)
+addEventHandler ( "onPlayerWasted", getRootElement(), wastedHandler)
 addEventHandler ( "onPlayerQuit", getRootElement(), quitHandler )
 
 if ZombieSpeed == 0 then --super slow zombies (goofy looking)
