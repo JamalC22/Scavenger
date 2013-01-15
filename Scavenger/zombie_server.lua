@@ -6,6 +6,28 @@ ZombieLimit = get("zombies.MaxZombies")
 ZombieSpeed = get("zombies.Speed")
 --Skin IDs
 ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
+PlayerSkins = { 0,7,9,10,11,12,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,38,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,66,68,69,71,72,73 }
+
+function savePOS( playerSource, command, name )
+	if playerSource then
+		if name then
+			local posFile = fileOpen("pos.txt", false)
+			if not posFile then
+				posFile = fileCreate("pos.txt")
+			end
+			fileSetPos (posFile, fileGetSize(posFile))
+			local x, y, z = getElementPosition( playerSource )
+			if x and y and z then
+				fileWrite(posFile, name .. ":" .. x .. "," .. y .. "," .. z .. "\n")
+				outputChatBox("Saved position " .. name .. ":" .. x .. "," .. y .. "," .. z, playerSource)
+			end
+			fileClose(posFile)
+		else
+			outputChatBox("Please specify a name, /asd name", playerSource)
+		end
+	end
+end
+addCommandHandler( "asd", savePOS )
 
 function kickPlayerHandler( playerSource, command, name, reason )
 	if name and reason then
@@ -36,16 +58,17 @@ function wastedHandler ( totalAmmo, killer, killerWeapon, bodypart )
 		setElementData ( source, "Zombie kills", 0  )
 		triggerClientEvent("onZombieWasted", getRootElement(), 0 )
 	end
+	setElementData ( source, "model", PlayerSkins[math.random(table.getn(PlayerSkins))] )
 	spawnHandler ( source )
 end
 
-function spawnHandler ( x, y, z )
+function spawnHandler ( x, y, z, model )
 	if x and y and z then
 		spawnPlayer(source, x, y, z)
 	else
 		spawnPlayer(source, 1959.55, -1714.46, 18)
 	end
-	setElementModel ( source, 283 )
+	setElementModel ( source,  getElementData(source, "model") )
 	fadeCamera(source, true)
 	setCameraTarget(source, source)		
 end
@@ -80,6 +103,12 @@ function quitHandler ()
 			setAccountData ( playeraccount, "zombies.killcount", playerKillCount )
 		else
 			setAccountData ( playeraccount, "zombies.killcount", 0 )
+		end
+		local playerModel = getElementData ( source , "model" )
+		if playerModel then
+			setAccountData ( playeraccount, "zombies.playermodel", playerModel )
+		else
+			setAccountData ( playeraccount, "zombies.playermodel", 7 )
 		end
 	end
 	logOut(source)
@@ -120,16 +149,27 @@ end
 
 function loadAccountData ( account )
 	if account then
-		local x = getAccountData(account, "zombies.pX")
-		local y = getAccountData(account, "zombies.pY")
-		local z = getAccountData(account, "zombies.pZ")
-		if x and y and z then
-			spawnHandler(x, y, z + 2)
-		else
-			spawnHandler()
-		end
 		local player = getAccountPlayer(account)
 		if player then
+			local playerKillCount = getAccountData(account, "zombies.killcount")
+			if(playerKillCount) then
+				setElementData ( player, "Zombie kills", playerKillCount  )
+				triggerClientEvent("onZombieWasted", getRootElement(), playerKillCount)
+			end
+			local playerModel = getAccountData(account, "zombies.playermodel")
+			if(playerModel) then
+				setElementData ( player, "model", playerModel  )
+			else
+				setElementData ( player, "model", 7  )
+			end
+			local x = getAccountData(account, "zombies.pX")
+			local y = getAccountData(account, "zombies.pY")
+			local z = getAccountData(account, "zombies.pZ")
+			if x and y and z then
+				spawnHandler(x, y, z + 2)
+			else
+				spawnHandler()
+			end
 			for index = 0, 12, 1 do
 				local weaponID = getAccountData(account, "zombies.weaponid" .. index)
 				local weaponAmmo = getAccountData(account, "zombies.weaponammo" .. index)
@@ -144,11 +184,6 @@ function loadAccountData ( account )
 			local playerMoney = getAccountData(account, "zombies.playermoney")
 			if(playerMoney) then
 				setPlayerMoney (player, playerMoney)
-			end
-			local playerKillCount = getAccountData(account, "zombies.killcount")
-			if(playerKillCount) then
-				setElementData ( player, "Zombie kills", playerKillCount  )
-				triggerClientEvent("onZombieWasted", getRootElement(), playerKillCount)
 			end
 		end
 	end
