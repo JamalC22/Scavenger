@@ -45,6 +45,7 @@ function spawnHandler ( x, y, z )
 	else
 		spawnPlayer(source, 1959.55, -1714.46, 18)
 	end
+	setElementModel ( source, 283 )
 	fadeCamera(source, true)
 	setCameraTarget(source, source)		
 end
@@ -163,6 +164,21 @@ function gibwep ( playerSource, command, weaponID, weaponAmmo )
 	end
 end
 addCommandHandler("gibwep", gibwep, false, false)
+
+function gibcar ( playerSource, command, vehID )
+	if playerSource then
+		local x, y, z = getElementPosition( playerSource )
+		if x and y and z then
+			z = z + 15
+			if vehID then
+				createVehicle( vehID, x, y, z )
+			else
+				createVehicle( 508, x, y, z )
+			end
+		end
+	end
+end
+addCommandHandler("gibcarpls", gibcar, false, false)
 
 function zombieWastedHandler ( attacker, weapon, bodypart )
 	local killCount = getElementData ( attacker, "Zombie kills" )
