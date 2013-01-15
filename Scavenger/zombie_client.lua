@@ -88,6 +88,7 @@ addEvent("onSuccessfulLogin", true)
 function successfulLogin ()
 guiSetVisible(loginGUI, false)
 guiSetVisible(registerGUI, false)
+   showPlayerHudComponent ( source, "radar", false )
 showCursor(false)
 end
 addEventHandler("onSuccessfulLogin", getRootElement(), successfulLogin)
