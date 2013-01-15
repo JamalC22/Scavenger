@@ -7,6 +7,10 @@ ZombieSpeed = get("zombies.Speed")
 --Skin IDs
 ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
 PlayerSkins = { 0,7,9,10,11,12,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,38,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,66,68,69,71,72,73 }
+--Spawn locations
+LVSpawns = {{x = 1041.9091796875, y = 1027.4619140625, z = 11},{x = 1704.466796875,y = 702.98046875,z = 10.8203125},{x = 1715.2705078125, y = 2320.55859375, z = 10.8203125}}
+LSSpawns = {{x = 596.681640625, y = -1243.056640625, z = 18.132949829102},{x = 974.7734375, y = -1481.87890625, z = 13.573222160339},{x = 651.80859375, y = -1652.49609375, z = 14.761287689209}}
+SFSpawns = {{x = -2720.5791015625, y = -127.533203125, z = 4.3359375},{x = -1916.65625, y = 279.349609375, z = 41.046875},{x = -2027.4462890625, y = -100.87890625, z = 35.1640625}}
 
 function savePOS( playerSource, command, name )
 	if playerSource then
@@ -62,11 +66,21 @@ function wastedHandler ( totalAmmo, killer, killerWeapon, bodypart )
 	spawnHandler ( source )
 end
 
-function spawnHandler ( x, y, z, model )
+function spawnHandler ( x, y, z )
 	if x and y and z then
 		spawnPlayer(source, x, y, z)
 	else
-		spawnPlayer(source, 1959.55, -1714.46, 18)
+		local city = math.random(0, 2)
+		if city == 0 then
+			local spawnLocation = LVSpawns[math.random(0, table.getn(LVSpawns))]
+			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+		elseif city == 1 then
+			local spawnLocation = LSSpawns[math.random(0, table.getn(LSSpawns))]
+			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+		elseif city == 2 then
+			local spawnLocation = SFSpawns[math.random(0, table.getn(SFSpawns))]
+			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+		end
 	end
 	setElementModel ( source,  getElementData(source, "model") )
 	fadeCamera(source, true)
