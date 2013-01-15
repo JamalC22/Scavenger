@@ -13,7 +13,7 @@ function kickPlayerHandler( playerSource, command, name, reason )
 		if kickedPlayer then
 			kickPlayer( kickedPlayer, reason )
 		else
-			outputChatBox("Couldn't find player", playerSource)
+			outputChatBox("Couldn't find player.", playerSource)
 		end
 	else
 		outputChatBox("Syntax: /kick-player name, reason", playerSource)
@@ -188,6 +188,13 @@ function zombieWastedHandler ( attacker, weapon, bodypart )
 	givePlayerMoney ( attacker, 5 + math.random(5) )
 end
 
+function resourceStart()
+    local realtime = getRealTime()
+ 
+    setTime(realtime.hour, realtime.minute)
+    setMinuteDuration(60000)
+end
+
 addEvent("onAttemptLogin", true)
 addEvent("onAttemptRegister", true)
 addEvent("onZombieWasted", false)
@@ -196,6 +203,7 @@ addEventHandler ( "onAttemptRegister", getRootElement(), attemptRegister)
 addEventHandler ( "onAttemptLogin", getRootElement(), attemptLogin)
 addEventHandler ( "onPlayerWasted", getRootElement(), wastedHandler)
 addEventHandler ( "onPlayerQuit", getRootElement(), quitHandler )
+addEventHandler("onResourceStart", getResourceRootElement(getThisResource()), resourceStart)
 
 if ZombieSpeed == 0 then --super slow zombies (goofy looking)
 	chaseanim = "WALK_drunk"
