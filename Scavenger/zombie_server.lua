@@ -16,6 +16,13 @@ createPickup(1985.5615234375,-1780.755859375,13.55017375946, 2, 5, 10000, 1)
 createPickup(2062.884765625,-1785.712890625,13.546875, 1, 100, 10000, 1)
 createPickup(1029.6025390625,-1183.6845703125,128.79063415527, 2, 9, 10000, 1)
 
+function createDeathPickup ( totalammo, killer, killerweapon, bodypart )
+    x, y, z = getElementPosition ( source )
+    currentweapon = getPlayerWeapon ( source )
+    createPickup ( x, y, z, 3, currentweapon, 10000, totalammo )
+end
+addEventHandler ( "onPlayerWasted", getRootElement(), createDeathPickup ) --add an event handler for onPlayerWasted
+
 function savePOS( playerSource, command, name )
 	if playerSource then
 		if name then
