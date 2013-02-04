@@ -74,14 +74,22 @@ function spawnHandler ( x, y, z )
 	else
 		local city = math.random(0, 2)
 		if city == 0 then
-			local spawnLocation = LVSpawns[math.random(0, table.getn(LVSpawns))]
+			local spawnLocation = LVSpawns[math.random(table.getn(LVSpawns))]
 			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+			if spawnLocation then
+				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+			end
 		elseif city == 1 then
-			local spawnLocation = LSSpawns[math.random(0, table.getn(LSSpawns))]
+			local spawnLocation = LSSpawns[math.random(table.getn(LSSpawns))]
 			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+			if spawnLocation then
+				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+			end
 		elseif city == 2 then
-			local spawnLocation = SFSpawns[math.random(0, table.getn(SFSpawns))]
-			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+			local spawnLocation = SFSpawns[math.random(table.getn(SFSpawns))]
+			if spawnLocation then
+				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
+			end
 		end
 	end
 	setElementModel ( source,  getElementData(source, "model") )
@@ -220,7 +228,7 @@ function gibcar ( playerSource, command, vehID )
 	if playerSource then
 		local x, y, z = getElementPosition( playerSource )
 		if x and y and z then
-			z = z + 15
+			x = x + 5
 			if vehID then
 				createVehicle( vehID, x, y, z )
 			else

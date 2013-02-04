@@ -79,17 +79,17 @@ addEventHandler("onClientGUIClick", confirmLoginButton, attemptLogin)
 addEventHandler("onClientGUIAccepted", loginPasswordBox, attemptLogin)
 
 function attemptRegister ()
-triggerServerEvent ( "onAttemptRegister", getLocalPlayer(), guiGetText(registerUsernameBox), guiGetText(registerPasswordBox) )
+	triggerServerEvent ( "onAttemptRegister", getLocalPlayer(), guiGetText(registerUsernameBox), guiGetText(registerPasswordBox) )
 end
 addEventHandler("onClientGUIClick", confirmRegisterButton, attemptRegister)
 addEventHandler("onClientGUIAccepted", registerPasswordBox, attemptRegister)
 
 addEvent("onSuccessfulLogin", true)
 function successfulLogin ()
-guiSetVisible(loginGUI, false)
-guiSetVisible(registerGUI, false)
-   showPlayerHudComponent ( source, "radar", false )
-showCursor(false)
+	guiSetVisible(loginGUI, false)
+	guiSetVisible(registerGUI, false)
+	showPlayerHudComponent ( "radar", false )
+	showCursor(false)
 end
 addEventHandler("onSuccessfulLogin", getRootElement(), successfulLogin)
 
