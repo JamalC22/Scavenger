@@ -1,53 +1,245 @@
---1 to constantly stream zombies, 0 to only allow zombies to spawn via createZombie function, 2 to only allow spawning at set spawnpoints
+
+--Streaming method																																																																																								
 ZombieStreaming = get("zombies.StreamMethod")
 --Maximum zombies
 ZombieLimit = get("zombies.MaxZombies")
 --Zombie speed
 ZombieSpeed = get("zombies.Speed")
 --Skin IDs
-ZombiePedSkins = {13,22,56,67,68,69,70,92,97,105,107,108,126,127,128,152,162,167,188,195,206,209,212,229,230,258,264,277,280,287 }
-PlayerSkins = { 0,7,9,10,11,12,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,38,49,50,51,52,53,54,55,57,58,59,60,61,62,63,64,66,68,69,71,72,73, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 93, 94, 95, 96, 98, 99, 100, 283 }
+
+ZombiePedSkins = 
+{
+	13,
+	22,
+	56,
+	67,
+	68,
+	69,
+	70,
+	92,
+	97,
+	105,
+	107,
+	108,
+	126,
+	127,
+	128,
+	152,
+	162,
+	167,
+	188,
+	195,
+	206,
+	209,
+	212,
+	229,
+	230,
+	258,
+	264,
+	277,
+	280,
+	287,
+}
+
+PlayerSkins = 
+{
+	0,
+	7,
+	9,
+	10,
+	11,
+	12,
+	14,
+	15,
+	16,
+	17,
+	18,
+	19,
+	20,
+	21,
+	23,
+	24,
+	25,
+	26,
+	27,
+	28,
+	29,
+	30,
+	31,
+	32,
+	33,
+	34,
+	35,
+	36,
+	37,
+	38,
+	39,
+	40,
+	41,
+	43,
+	44,
+	45,
+	46,
+	47,
+	38,
+	49,
+	50,
+	51,
+	52,
+	53,
+	54,
+	55,
+	57,
+	58,
+	59,
+	60,
+	61,
+	62,
+	63,
+	64,
+	66,
+	68,
+	69,
+	71,
+	72,
+	73,
+	75,
+	76,
+	77,
+	78,
+	79,
+	80,
+	81,
+	82,
+	83,
+	84,
+	85,
+	86,
+	87,
+	88,
+	89,
+	90,
+	91,
+	93,
+	94,
+	95,
+	96,
+	98,
+	99,
+	100,
+	283,
+}
+
 --Spawn locations
-LVSpawns = {{x = 1041.9091796875, y = 1027.4619140625, z = 11},{x = 1704.466796875,y = 702.98046875,z = 10.8203125},{x = 1715.2705078125, y = 2320.55859375, z = 10.8203125}}
-LSSpawns = {{x = 596.681640625, y = -1243.056640625, z = 18.132949829102},{x = 974.7734375, y = -1481.87890625, z = 13.573222160339},{x = 651.80859375, y = -1652.49609375, z = 14.761287689209}}
-SFSpawns = {{x = -2720.5791015625, y = -127.533203125, z = 4.3359375},{x = -1916.65625, y = 279.349609375, z = 41.046875},{x = -2027.4462890625, y = -100.87890625, z = 35.1640625}}
 
-createPickup(1985.5615234375,-1780.755859375,13.55017375946, 2, 5, 120000, 1) --Bat
-createPickup(2062.884765625,-1785.712890625,13.546875, 1, 100, 120000) --Armor
-createPickup(1029.6025390625,-1183.6845703125,128.79063415527, 2, 9, 120000, 1) --Chainsaw
-createPickup(1553.423828125,-1675.255859375,16.1953125, 2, 22, 120000, 17) --LS Pistol at PD
-createPickup(-1605.7294921875,711.6748046875,13.8671875, 2, 22, 120000, 17) --SF Pistol at PD
-createPickup(2289.884765625,2430.2431640625,10.8203125, 2, 22, 120000, 17) --LV Pistol at PD
-createPickup(-1342.2353515625,500.0888671875,11.1953125, 2, 30, 120000, 30) --SF Military Boat (AK)
-createPickup(1289.1884765625,490.8759765625,11.1953125, 1, 120000) --SF Military Boat (Armor)
-createPickup(162.453125,1932.3935546875,33.8984375, 2, 34, 120000, 30) --LV Military Base (Sniper)
-createPickup(246.9482421875,1859.1865234375,14.084012985229, 2, 30, 120000, 30) --LV Military Base (AK)
-createPickup(1110.8427734375,-1796.6748046875,16.59375, 2, 6, 120000, 1) --LS Shovel
-createPickup(1309.2880859375,-1372.8583984375,13.606167793274, 2, 23, 120000, 17) --LS Silenced Pistol
-createPickup(1871.8447265625,-1362.9091796875,13.536072731018, 2, 26, 120000, 12) --LS Sawn-off
-createPickup(1680.458984375,770.7841796875,10.8203125, 2, 4, 120000, 1) --LV Knife
-createPickup(985.9228515625,1931.3994140625,11.46875, 2, 8, 120000, 1) --LV Katana
-createPickup(2126.8984375,2376.6328125,10.8203125, 2, 24, 120000, 14) --LV Desert Eagle
+LVSpawns = 
+{
+	{
+		x = 1041.9091796875,
+		y = 1027.4619140625,
+		z = 11,
+	},
+	{
+		x = 1704.466796875,
+		y = 702.98046875,
+		z = 10.8203125,
+	},
+	{
+		x = 1715.2705078125,
+		y = 2320.55859375,
+		z = 10.8203125,
+	},
+}
 
+LSSpawns = 
+{
+	{
+		x = 596.681640625,
+		y =  - 1243.056640625,
+		z = 18.132949829102,
+	},
+	{
+		x = 974.7734375,
+		y =  - 1481.87890625,
+		z = 13.573222160339,
+	},
+	{
+		x = 651.80859375,
+		y =  - 1652.49609375,
+		z = 14.761287689209,
+	},
+}
 
+SFSpawns = 
+{
+	{
+		x =  - 2720.5791015625,
+		y =  - 127.533203125,
+		z = 4.3359375,
+	},
+	{
+		x =  - 1916.65625,
+		y = 279.349609375,
+		z = 41.046875,
+	},
+	{
+		x =  - 2027.4462890625,
+		y =  - 100.87890625,
+		z = 35.1640625,
+	},
+}
 
-function createDeathPickup ( totalammo, killer, killerweapon, bodypart )
-    x, y, z = getElementPosition ( source )
-    currentweapon = getPlayerWeapon ( source )
-    createPickup ( x, y, z, 3, currentweapon, 10000, totalammo )
-end
-addEventHandler ( "onPlayerWasted", getRootElement(), createDeathPickup ) --add an event handler for onPlayerWasted
+--Pickup locations
+createPickup(1985.5615234375, - 1780.755859375, 13.55017375946, 2, 5, 120000, 1)
+--Bat
+createPickup(2062.884765625, - 1785.712890625, 13.546875, 1, 100, 120000)
+--Armor
+createPickup(1029.6025390625, - 1183.6845703125, 128.79063415527, 2, 9, 120000, 1)
+--Chainsaw
+createPickup(1553.423828125, - 1675.255859375, 16.1953125, 2, 22, 120000, 17)
+--LS Pistol at PD
+createPickup(- 1605.7294921875, 711.6748046875, 13.8671875, 2, 22, 120000, 17)
+--SF Pistol at PD
+createPickup(2289.884765625, 2430.2431640625, 10.8203125, 2, 22, 120000, 17)
+--LV Pistol at PD
+createPickup(- 1342.2353515625, 500.0888671875, 11.1953125, 2, 30, 120000, 30)
+--SF Military Boat (AK)
+createPickup(1289.1884765625, 490.8759765625, 11.1953125, 1, 120000)
+--SF Military Boat (Armor)
+createPickup(162.453125, 1932.3935546875, 33.8984375, 2, 34, 120000, 30)
+--LV Military Base (Sniper)
+createPickup(246.9482421875, 1859.1865234375, 14.084012985229, 2, 30, 120000, 30)
+--LV Military Base (AK)
+createPickup(1110.8427734375, - 1796.6748046875, 16.59375, 2, 6, 120000, 1)
+--LS Shovel
+createPickup(1309.2880859375, - 1372.8583984375, 13.606167793274, 2, 23, 120000, 17)
+--LS Silenced Pistol
+createPickup(1871.8447265625, - 1362.9091796875, 13.536072731018, 2, 26, 120000, 12)
+--LS Sawn-off
+createPickup(1680.458984375, 770.7841796875, 10.8203125, 2, 4, 120000, 1)
+--LV Knife
+createPickup(985.9228515625, 1931.3994140625, 11.46875, 2, 8, 120000, 1)
+--LV Katana
+createPickup(2126.8984375, 2376.6328125, 10.8203125, 2, 24, 120000, 14)
+--LV Desert Eagle
+--Events
+addEvent("onAttemptLogin", true)
+addEvent("onAttemptRegister", true)
+addEvent("onZombieWasted", false)
+--Command Handlers
 
-function savePOS( playerSource, command, name )
-	if playerSource then
-		if name then
+function savePOS(playerSource, command, name)	
+	if playerSource then	
+		if name then	
 			local posFile = fileOpen("pos.txt", false)
-			if not posFile then
+			if not posFile then	
 				posFile = fileCreate("pos.txt")
 			end
-			fileSetPos (posFile, fileGetSize(posFile))
-			local x, y, z = getElementPosition( playerSource )
-			if x and y and z then
+			fileSetPos(posFile, fileGetSize(posFile))
+			local x,
+			y,
+			z = getElementPosition(playerSource)
+			if x and y and z then	
 				fileWrite(posFile, name .. ":" .. x .. "," .. y .. "," .. z .. "\n")
 				outputChatBox("Saved position " .. name .. ":" .. x .. "," .. y .. "," .. z, playerSource)
 			end
@@ -57,394 +249,450 @@ function savePOS( playerSource, command, name )
 		end
 	end
 end
-addCommandHandler( "asd", savePOS )
 
-function kickPlayerHandler( playerSource, command, name, reason )
-	if name and reason then
-		local kickedPlayer = getPlayerFromName( name )
-		if kickedPlayer then
-			kickPlayer( kickedPlayer, reason )
+addCommandHandler("savepos", savePOS)
+
+function teleportPlayer(playerSource, command, playerName)	
+	if playerSource and playerName then	
+		local targetPlayer = getPlayerFromName(playerName)
+		if (targetPlayer) then	
+			local x,
+			y,
+			z = getElementPosition(targetPlayer)
+			spawnPlayer(playerSource, x + 2, y, z)
+			fadeCamera(playerSource, true)
+			setCameraTarget(playerSource, playerSource)
+			outputChatBox("Teleported")
 		else
-			outputChatBox("Couldn't find player.", playerSource)
+			outputChatBox("Could not find player")
 		end
-	else
-		outputChatBox("Syntax: /kick-player name, reason", playerSource)
 	end
 end
-addCommandHandler( "kick-player", kickPlayerHandler )
 
-function wastedHandler ( totalAmmo, killer, killerWeapon, bodypart )
-	local playerMoney = getPlayerMoney(source)
-	if playerMoney and playerMoney > 100 then
-		takePlayerMoney(source, playerMoney / 4)
-		if(killer) then
-			if getElementType ( killer ) == "player" then
-				givePlayerMoney(killer, playerMoney / 4)
+addCommandHandler("teleplayer", teleportPlayer, false, false)
+
+function spawnWeapon(playerSource, command, weaponID, weaponAmmo)	
+	outputChatBox("Please specify a name, /asd name", playerSource)
+	if playerSource then	
+		if weaponID and weaponAmmo then	
+			giveWeapon(playerSource, weaponID, weaponAmmo)
+		else
+			giveWeapon(playerSource, 38, 5000)
+		end
+	end
+end
+
+addCommandHandler("spawnwep", spawnWeapon, false, false)
+
+function spawnCar(playerSource, command, vehID)	
+	if playerSource then	
+		local x,
+		y,
+		z = getElementPosition(playerSource)
+		if x and y and z then	
+			x = x + 5
+			if vehID then	
+				createVehicle(vehID, x, y, z)
+			else
+				createVehicle(508, x, y, z)
 			end
 		end
 	end
-	local playerKillCount = getElementData ( source, "Zombie kills")
-	if playerKillCount and playerKillCount > 0 then
-		setElementData ( source, "Zombie kills", 0  )
-		triggerClientEvent("onZombieWasted", getRootElement(), 0 )
-	end
-	setElementData ( source, "model", PlayerSkins[math.random(table.getn(PlayerSkins))] )
-	spawnHandler ( source )
 end
 
-function spawnHandler ( x, y, z )
-	if x and y and z then
+addCommandHandler("spawncar", spawnCar, false, false)
+--Handles player death
+
+function playerKilled(totalAmmo, killer, killerWeapon, bodypart)	
+	local playerMoney = getPlayerMoney(source)
+	if playerMoney and playerMoney > 100 then	
+		takePlayerMoney(source, playerMoney / 2)
+		if (killer) then	
+			if getElementType(killer) == "player" then	
+				givePlayerMoney(killer, playerMoney / 2)
+			end
+		end
+	end
+	local playerKillCount = getElementData(source, "Zombie kills")
+	if playerKillCount and playerKillCount > 0 then	
+		setElementData(source, "Zombie kills", 0)
+		triggerClientEvent(source, "onZombieWasted", getRootElement(), 0)
+	end
+	setElementData(source, "model", PlayerSkins[math.random(table.getn(PlayerSkins))])
+	spawnPlayer(source)
+end
+
+addEventHandler("onPlayerWasted", getRootElement(), playerKilled)
+--Spawns player at location
+
+function spawnPlayer(x, y, z)	
+	if x and y and z then	
 		spawnPlayer(source, x, y, z)
 	else
 		local city = math.random(0, 2)
-		if city == 0 then
+		if city == 0 then	
 			local spawnLocation = LVSpawns[math.random(table.getn(LVSpawns))]
 			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			if spawnLocation then
+			if spawnLocation then	
 				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
 			end
-		elseif city == 1 then
+		elseif city == 1 then	
 			local spawnLocation = LSSpawns[math.random(table.getn(LSSpawns))]
 			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			if spawnLocation then
+			if spawnLocation then	
 				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
 			end
-		elseif city == 2 then
+		elseif city == 2 then	
 			local spawnLocation = SFSpawns[math.random(table.getn(SFSpawns))]
-			if spawnLocation then
+			if spawnLocation then	
 				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
 			end
 		end
 	end
-	setElementModel ( source,  getElementData(source, "model") )
+	setElementModel(source, getElementData(source, "model"))
 	fadeCamera(source, true)
-	setCameraTarget(source, source)		
+	setCameraTarget(source, source)
 end
 
-function quitHandler ()
-	local playeraccount = getPlayerAccount ( source )
-	if playeraccount and not isGuestAccount ( playeraccount ) then
-		local x, y, z = getElementPosition( source )
-		setAccountData ( playeraccount, "zombies.pX", x )
-		setAccountData ( playeraccount, "zombies.pY", y )
-		setAccountData ( playeraccount, "zombies.pZ", z )
-		for index = 0, 12, 1 do
-			local weaponID = getPedWeapon	( source, index)
-			local weaponAmmo = getPedTotalAmmo ( source, index )
-			setAccountData ( playeraccount, "zombies.weaponid" .. index, weaponID )
-			setAccountData ( playeraccount, "zombies.weaponammo" .. index, weaponAmmo )
+--Login
+
+function loginPlayer(username, password)	
+	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then	
+		local account = getAccount(username, password)
+		if not account then	
+			triggerClientEvent("onUnsuccessfulLogin", getRootElement(), "Account not found")
+		else
+			triggerClientEvent("onSuccessfulLogin", getRootElement())
+			logIn(source, account, password)
+			loadPlayer(account)
+		end
+	end
+end
+
+addEventHandler("onAttemptLogin", getRootElement(), loginPlayer)
+--Register
+
+function registerPlayer(username, password)	
+	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then	
+		local account = getAccount(username, password)
+		if account then	
+			triggerClientEvent("onSuccessfulLogin", getRootElement())
+			logIn(source, account, password)
+			loadPlayer(account)
+		else
+			if addAccount(username, password) ~= false then	
+				triggerClientEvent("onSuccessfulLogin", getRootElement())
+				spawnPlayer()
+			else
+				triggerClientEvent("onUnsuccessfulLogin", getRootElement(), "Failed to create account")
+			end
+		end
+	else
+		triggerClientEvent("onUnsuccessfulLogin", getRootElement(), "Invalid login data")
+	end
+end
+
+addEventHandler("onAttemptRegister", getRootElement(), registerPlayer)
+
+function savePlayer()	
+	local playeraccount = getPlayerAccount(source)
+	if playeraccount and not
+	isGuestAccount(playeraccount) then	
+		local x,
+		y,
+		z = getElementPosition(source)
+		setAccountData(playeraccount, "zombies.pX", x)
+		setAccountData(playeraccount, "zombies.pY", y)
+		setAccountData(playeraccount, "zombies.pZ", z)
+		for index = 0, 12, 1 do	
+			local weaponID = getPedWeapon(source, index)
+			local weaponAmmo = getPedTotalAmmo(source, index)
+			setAccountData(playeraccount, "zombies.weaponid" .. index, weaponID)
+			setAccountData(playeraccount, "zombies.weaponammo" .. index, weaponAmmo)
 		end
 		local playerHealth = getElementHealth(source)
-		if playerHealth then
-			setAccountData ( playeraccount, "zombies.playerhealth", playerHealth )
+		if playerHealth then	
+			setAccountData(playeraccount, "zombies.playerhealth", playerHealth)
 		else
-			setAccountData ( playeraccount, "zombies.playerhealth", 1.0 )
+			setAccountData(playeraccount, "zombies.playerhealth", 1)
 		end
 		local playerMoney = getPlayerMoney(source)
-		if(playerMoney) then
-			setAccountData ( playeraccount, "zombies.playermoney", playerMoney )
+		if (playerMoney) then	
+			setAccountData(playeraccount, "zombies.playermoney", playerMoney)
 		else
-			setAccountData ( playeraccount, "zombies.playermoney", 0 )
+			setAccountData(playeraccount, "zombies.playermoney", 0)
 		end
-		local playerKillCount = getElementData ( source, "Zombie kills")
-		if playerKillCount then
-			setAccountData ( playeraccount, "zombies.killcount", playerKillCount )
+		local playerKillCount = getElementData(source, "Zombie kills")
+		if playerKillCount then	
+			setAccountData(playeraccount, "zombies.killcount", playerKillCount)
 		else
-			setAccountData ( playeraccount, "zombies.killcount", 0 )
+			setAccountData(playeraccount, "zombies.killcount", 0)
 		end
-		local playerModel = getElementData ( source , "model" )
-		if playerModel then
-			setAccountData ( playeraccount, "zombies.playermodel", playerModel )
+		local playerModel = getElementData(source, "model")
+		if playerModel then	
+			setAccountData(playeraccount, "zombies.playermodel", playerModel)
 		else
-			setAccountData ( playeraccount, "zombies.playermodel", 7 )
+			setAccountData(playeraccount, "zombies.playermodel", 7)
 		end
 	end
 	logOut(source)
 end
 
-function attemptLogin ( username, password )
-	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then
-		local account = getAccount( username, password )
-		if not account then
-			triggerClientEvent ( "onUnsuccessfulLogin", getRootElement(), "Account not found" )
-		else
-			triggerClientEvent ( "onSuccessfulLogin", getRootElement())
-			logIn (source, account, password)
-			loadAccountData( account )
-		end
-	end
-end
+addEventHandler("onPlayerQuit", getRootElement(), savePlayer)
 
-function  attemptRegister ( username, password )
-	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then
-		local account = getAccount( username, password )
-		if account then
-			triggerClientEvent ( "onSuccessfulLogin", getRootElement())
-			logIn (source, account, password)
-			loadAccountData( account )
-		else
-			if addAccount(username, password) ~= false then
-				triggerClientEvent ( "onSuccessfulLogin", getRootElement())
-				spawnHandler()
-			else
-				triggerClientEvent ( "onUnsuccessfulLogin", getRootElement(), "Failed to create account" )
-			end
-		end
-	else
-		triggerClientEvent ( "onUnsuccessfulLogin", getRootElement(), "Invalid login data" )
-	end
-end
-
-function loadAccountData ( account )
-	if account then
+function loadPlayer(account)	
+	if account then	
 		local player = getAccountPlayer(account)
-		if player then
+		if player then	
 			local playerKillCount = getAccountData(account, "zombies.killcount")
-			if(playerKillCount) then
-				setElementData ( player, "Zombie kills", playerKillCount  )
-				triggerClientEvent("onZombieWasted", getRootElement(), playerKillCount)
+			if (playerKillCount) then	
+				setElementData(player, "Zombie kills", playerKillCount)
+				triggerClientEvent(player, "onZombieWasted", getRootElement(), playerKillCount)
 			end
 			local playerModel = getAccountData(account, "zombies.playermodel")
-			if(playerModel) then
-				setElementData ( player, "model", playerModel  )
+			if (playerModel) then	
+				setElementData(player, "model", playerModel)
 			else
-				setElementData ( player, "model", 7  )
+				setElementData(player, "model", 7)
 			end
 			local x = getAccountData(account, "zombies.pX")
 			local y = getAccountData(account, "zombies.pY")
 			local z = getAccountData(account, "zombies.pZ")
-			if x and y and z then
-				spawnHandler(x, y, z + 2)
+			if x and y and z then	
+				spawnPlayer(x, y, z + 2)
 			else
-				spawnHandler()
+				spawnPlayer()
 			end
-			for index = 0, 12, 1 do
+			for index = 0, 12, 1 do	
 				local weaponID = getAccountData(account, "zombies.weaponid" .. index)
 				local weaponAmmo = getAccountData(account, "zombies.weaponammo" .. index)
-				if weaponAmmo and weaponAmmo > 0 then
+				if weaponAmmo and weaponAmmo > 0 then	
 					giveWeapon(player, weaponID, weaponAmmo)
 				end
 			end
 			local playerHealth = getAccountData(account, "zombies.playerhealth")
-			if(playerHealth) then
+			if (playerHealth) then	
 				setElementHealth(player, playerHealth)
 			end
 			local playerMoney = getAccountData(account, "zombies.playermoney")
-			if(playerMoney) then
-				setPlayerMoney (player, playerMoney)
+			if (playerMoney) then	
+				setPlayerMoney(player, playerMoney)
 			end
 		end
 	end
 end
 
-function gibwep ( playerSource, command, weaponID, weaponAmmo )
-	if playerSource then
-		if weaponID and weaponAmmo then
-			giveWeapon(playerSource, weaponID, weaponAmmo )
-		else
-			giveWeapon(playerSource, 38, 5000 )
-		end
+function updateKillcount(attacker, weapon, bodypart)	
+	local killCount = getElementData(attacker, "Zombie kills")
+	if killCount then	
+		triggerClientEvent(attacker, "onZombieWasted", getRootElement(), killCount)
 	end
-end
-addCommandHandler("gibwep", gibwep, false, false)
-
-function gibcar ( playerSource, command, vehID )
-	if playerSource then
-		local x, y, z = getElementPosition( playerSource )
-		if x and y and z then
-			x = x + 5
-			if vehID then
-				createVehicle( vehID, x, y, z )
-			else
-				createVehicle( 508, x, y, z )
-			end
-		end
-	end
-end
-addCommandHandler("gibcarpls", gibcar, false, false)
-
-function zombieWastedHandler ( attacker, weapon, bodypart )
-	local killCount = getElementData ( attacker, "Zombie kills" )
-	if killCount then
-		triggerClientEvent("onZombieWasted", getRootElement(), killCount)
-	end
-	givePlayerMoney ( attacker, 5 + math.random(5) )
+	givePlayerMoney(attacker, math.random(5) * math.random(5) + 5)
 end
 
-function resourceStart()
-    local realtime = getRealTime()
- 
-    setTime(realtime.hour, realtime.minute)
-    setMinuteDuration(60000)
+addEventHandler("onZombieWasted", getRootElement(), updateKillcount)
+
+function modifyTimescale()	
+	local realtime = getRealTime()
+	setTime(realtime.hour, realtime.minute)
+	setMinuteDuration(60000)
 end
 
-addEvent("onAttemptLogin", true)
-addEvent("onAttemptRegister", true)
-addEvent("onZombieWasted", false)
-addEventHandler ( "onZombieWasted", getRootElement(), zombieWastedHandler)
-addEventHandler ( "onAttemptRegister", getRootElement(), attemptRegister)
-addEventHandler ( "onAttemptLogin", getRootElement(), attemptLogin)
-addEventHandler ( "onPlayerWasted", getRootElement(), wastedHandler)
-addEventHandler ( "onPlayerQuit", getRootElement(), quitHandler )
-addEventHandler("onResourceStart", getResourceRootElement(getThisResource()), resourceStart)
+addEventHandler("onResourceStart", getResourceRootElement(getThisResource()), modifyTimescale)
 
-if ZombieSpeed == 0 then --super slow zombies (goofy looking)
+if ZombieSpeed == 0 then	
+	--super slow zombies (goofy looking)
 	chaseanim = "WALK_drunk"
 	checkspeed = 2000
-elseif ZombieSpeed == 1 then -- normal speed
+elseif ZombieSpeed == 1 then	
+	-- normal speed
 	chaseanim = "run_old"
 	checkspeed = 1000
-elseif ZombieSpeed == 2 then -- rocket zombies (possibly stressful on server)
+elseif ZombieSpeed == 2 then	
+	-- rocket zombies (possibly stressful on server)
 	chaseanim = "Run_Wuzi"
 	checkspeed = 680
-else -- defaults back to normal
+else
+	-- defaults back to normal
 	chaseanim = "run_old"
 	checkspeed = 1000
 end
-resourceRoot = getResourceRootElement()
-moancount =0
-moanlimit = 10
-everyZombie = { }
 
+resourceRoot = getResourceRootElement()
+moancount = 0
+moanlimit = 10
+everyZombie = {}
 --IDLE BEHAVIOUR OF A ZOMBIE
-function Zomb_Idle (ped)
-	if isElement(ped) then
-		if ( getElementData ( ped, "status" ) == "idle" ) and ( isPedDead ( ped ) == false ) and (getElementData (ped, "zombie") == true) then
-			local action = math.random( 1, 6 )
-			if action < 4 then -- walk a random direction
-				local rdmangle = math.random( 1, 359 )
-				setPedRotation( ped, rdmangle )
-				setPedAnimation ( ped, "PED", "Player_Sneak", -1, true, true, true)
-				setTimer ( Zomb_Idle, 7000, 1, ped )
-			elseif action == 4 then -- get on the ground
-				setPedAnimation ( ped, "MEDIC", "cpr", -1, false, true, true)
-				setTimer ( Zomb_Idle, 4000, 1, ped )
-			elseif action == 5 then -- stand still doing nothing
-				setPedAnimation ( ped )
-				setTimer ( Zomb_Idle, 4000, 1, ped )
+
+function Zomb_Idle(ped)	
+	if isElement(ped) then	
+		if (getElementData (ped, "status") == "idle") and(isPedDead (ped) == false) and(getElementData (ped, "zombie") == true) then	
+			local action = math.random(1, 6)
+			if action < 4 then	
+				-- walk a random direction
+				local rdmangle = math.random(1, 359)
+				setPedRotation(ped, rdmangle)
+				setPedAnimation(ped, "PED", "Player_Sneak", - 1, true, true, true)
+				setTimer(Zomb_Idle, 7000, 1, ped)
+			elseif action == 4 then	
+				-- get on the ground
+				setPedAnimation(ped, "MEDIC", "cpr", - 1, false, true, true)
+				setTimer(Zomb_Idle, 4000, 1, ped)
+			elseif action == 5 then	
+				-- stand still doing nothing
+				setPedAnimation(ped)
+				setTimer(Zomb_Idle, 4000, 1, ped)
 			end
 		end
 	end
 end
 
 --BEHAVIOUR WHILE CHASING PLAYERS
-function Zomb_chase (ped, Zx, Zy, Zz )
-	if isElement(ped) then
-		if (getElementData ( ped, "status" ) == "chasing") and (getElementData (ped, "zombie") == true) then
-			local x, y, z = getElementPosition( ped )
-			if (getElementData ( ped, "target" ) == nil) and getElementData ( ped, "Tx" ) ~= false then			
-				local Px = getElementData ( ped, "Tx" )
-				local Py = getElementData ( ped, "Ty" )
-				local Pz = getElementData ( ped, "Tz" )
-				local Pdistance = (getDistanceBetweenPoints3D( Px, Py, Pz, x, y, z ))
-				if (Pdistance < 1.5 ) then
-					setTimer ( function (ped) if ( isElement ( ped ) ) then setElementData ( ped, "status", "idle" ) end end, 2000, 1, ped )
+
+function Zomb_chase(ped, Zx, Zy, Zz)	
+	if isElement(ped) then	
+		if (getElementData (ped, "status") == "chasing") and(getElementData (ped, "zombie") == true) then	
+			local x,
+			y,
+			z = getElementPosition(ped)
+			if (getElementData (ped, "target") == nil) and getElementData(ped, "Tx") ~= false then	
+				local Px = getElementData(ped, "Tx")
+				local Py = getElementData(ped, "Ty")
+				local Pz = getElementData(ped, "Tz")
+				local Pdistance = (getDistanceBetweenPoints3D(Px, Py, Pz, x, y, z))
+				if (Pdistance < 1.5) then	
+					setTimer(function (ped) if (isElement (ped)) then setElementData (ped, "status", "idle") end end, 2000, 1, ped)
 				end
 			end
-			local distance = (getDistanceBetweenPoints3D( x, y, z, Zx, Zy, Zz ))			
-			if (distance < 1 ) then -- IF THE PED HASNT MOVED
-				if (getElementData ( ped, "target" ) == nil) then
-					local giveup = math.random( 1, 15 )
-					if giveup == 1 then
-						setElementData ( ped, "status", "idle" )
+			local distance = (getDistanceBetweenPoints3D(x, y, z, Zx, Zy, Zz))
+			if (distance < 1) then	
+				-- IF THE PED HASNT MOVED
+				if (getElementData (ped, "target") == nil) then	
+					local giveup = math.random(1, 15)
+					if giveup == 1 then	
+						setElementData(ped, "status", "idle")
 					else
-						local action = math.random( 1, 2 )
-						if action == 1 then
-							setPedAnimation ( ped )
-							triggerClientEvent ( "Zomb_Punch", getRootElement(), ped )
-							setTimer ( function (ped) if ( isElement ( ped ) ) then setPedAnimation ( ped, "ped", chaseanim, -1, true, true, true ) end end, 800, 1, ped )
-							setTimer ( Zomb_chase, 2000, 1, ped, x, y, z )
-						elseif action == 2 then
-							setPedAnimation ( ped )
-							triggerClientEvent ( "Zomb_Jump", getRootElement(), ped )
-							setTimer ( Zomb_chase, 3500, 1, ped, x, y, z )
+						local action = math.random(1, 2)
+						if action == 1 then	
+							setPedAnimation(ped)
+							triggerClientEvent("Zomb_Punch", getRootElement(), ped)
+							setTimer(function (ped) if (isElement (ped)) then setPedAnimation (ped, "ped", chaseanim, - 1, true, true, true) end end, 800, 1, ped)
+							setTimer(Zomb_chase, 2000, 1, ped, x, y, z)
+						elseif action == 2 then	
+							setPedAnimation(ped)
+							triggerClientEvent("Zomb_Jump", getRootElement(), ped)
+							setTimer(Zomb_chase, 3500, 1, ped, x, y, z)
 						end
 					end
-				else 
-					local Ptarget = (getElementData ( ped, "target" ))
-					if isElement(Ptarget) then
-						local Px, Py, Pz = getElementPosition( Ptarget )
-						local Pdistance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-						if (Pdistance < 1.2 ) then -- ATTACK A PLAYER IF THEY ARE CLOSE
-							if ( isPedDead ( Ptarget ) ) then --EAT A DEAD PLAYER
-								setPedAnimation ( ped )
-								setPedAnimation ( ped, "MEDIC", "cpr", -1, false, true, false)
-								setTimer ( function (ped) if ( isElement ( ped ) ) then setElementData ( ped, "status", "idle" ) end end, 10000, 1, ped )
-								setTimer ( function (ped) if ( isElement ( ped ) ) then setPedRotation ( ped, getPedRotation(ped)-180) end end, 10000, 1, ped )
+				else
+					local Ptarget = (getElementData (ped, "target"))
+					if isElement(Ptarget) then	
+						local Px,
+						Py,
+						Pz = getElementPosition(Ptarget)
+						local Pdistance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+						if (Pdistance < 1.2) then	
+							-- ATTACK A PLAYER IF THEY ARE CLOSE
+							if (isPedDead (Ptarget)) then	
+								--EAT A DEAD PLAYER
+								setPedAnimation(ped)
+								setPedAnimation(ped, "MEDIC", "cpr", - 1, false, true, false)
+								setTimer(function (ped) if (isElement (ped)) then setElementData (ped, "status", "idle") end end, 10000, 1, ped)
+								setTimer(function (ped) if (isElement (ped)) then setPedRotation (ped, getPedRotation(ped) - 180) end end, 10000, 1, ped)
 								zmoan(ped)
 							else
-								local action = math.random( 1, 6 )
-								if action == 1 then
-									setPedAnimation ( ped)
-									triggerClientEvent ( "Zomb_Jump", getRootElement(), ped )
-									setTimer ( Zomb_chase, 2000, 1, ped, x, y, z )
+								local action = math.random(1, 6)
+								if action == 1 then	
+									setPedAnimation(ped)
+									triggerClientEvent("Zomb_Jump", getRootElement(), ped)
+									setTimer(Zomb_chase, 2000, 1, ped, x, y, z)
 								else
-									setPedAnimation ( ped)
-									triggerClientEvent ( "Zomb_Punch", getRootElement(), ped )
-									setTimer ( function (ped) if ( isElement ( ped ) ) then setPedAnimation ( ped, "ped", chaseanim, -1, true, true, true ) end end, 800, 1, ped )
-									setTimer ( Zomb_chase, 2000, 1, ped, x, y, z )
+									setPedAnimation(ped)
+									triggerClientEvent("Zomb_Punch", getRootElement(), ped)
+									setTimer(function (ped) if (isElement (ped)) then setPedAnimation (ped, "ped", chaseanim, - 1, true, true, true) end end, 800, 1, ped)
+									setTimer(Zomb_chase, 2000, 1, ped, x, y, z)
 								end
 							end
 						else
-							if ( isPedDead (Ptarget) ) then
-							setTimer ( function (ped) if ( isElement ( ped ) ) then setElementData ( ped, "status", "idle" ) end end, 2000, 1, ped )
-							setTimer ( function (ped) if ( isElement ( ped ) ) then setPedRotation ( ped, getPedRotation(ped)-180) end end, 1800, 1, ped )
+							if (isPedDead (Ptarget)) then	
+								setTimer(function (ped) if (isElement (ped)) then setElementData (ped, "status", "idle") end end, 2000, 1, ped)
+								setTimer(function (ped) if (isElement (ped)) then setPedRotation (ped, getPedRotation(ped) - 180) end end, 1800, 1, ped)
 							else
-								local action = math.random( 1, 2 )
-								if action == 1 then
-									setPedAnimation ( ped)
-									triggerClientEvent ( "Zomb_Punch", getRootElement(), ped )
-									setTimer ( function (ped) if ( isElement ( ped ) ) then setPedAnimation ( ped, "ped", chaseanim, -1, true, true, true ) end end, 800, 1, ped )
-									setTimer ( Zomb_chase, 2000, 1, ped, x, y, z )
-								elseif action == 2 then
-									setPedAnimation ( ped)
-									triggerClientEvent ( "Zomb_Jump", getRootElement(), ped )
-									setTimer ( Zomb_chase, 2000, 1, ped, x, y, z )
+								local action = math.random(1, 2)
+								if action == 1 then	
+									setPedAnimation(ped)
+									triggerClientEvent("Zomb_Punch", getRootElement(), ped)
+									setTimer(function (ped) if (isElement (ped)) then setPedAnimation (ped, "ped", chaseanim, - 1, true, true, true) end end, 800, 1, ped)
+									setTimer(Zomb_chase, 2000, 1, ped, x, y, z)
+								elseif action == 2 then	
+									setPedAnimation(ped)
+									triggerClientEvent("Zomb_Jump", getRootElement(), ped)
+									setTimer(Zomb_chase, 2000, 1, ped, x, y, z)
 								end
 							end
 						end
 					else
-						setElementData ( ped, "status", "idle" )
+						setElementData(ped, "status", "idle")
 					end
 				end
 			else
-				setPedAnimation ( ped, "ped", chaseanim, -1, true, true, true) --KEEP WALKING
-				setTimer ( Zomb_chase, checkspeed, 1, ped, x, y, z ) --CHECK AGAIN
+				setPedAnimation(ped, "ped", chaseanim, - 1, true, true, true)
+				--KEEP WALKING
+				setTimer(Zomb_chase, checkspeed, 1, ped, x, y, z)
+				--CHECK AGAIN
 			end
 		end
 	end
 end
 
 --SET THE DIRECTION OF THE ZOMBIE
-function setangle ()
-	for theKey,ped in ipairs(everyZombie) do
-		if isElement(ped) then
-			if ( getElementData ( ped, "status" ) == "chasing" ) then
+
+function setangle()	
+	for theKey, ped in ipairs(everyZombie) do	
+		if isElement(ped) then	
+			if (getElementData (ped, "status") == "chasing") then	
 				local x
 				local y
 				local z
 				local px
 				local py
 				local pz
-				if ( getElementData ( ped, "target" ) ~= nil ) then
-					local ptarget = getElementData ( ped, "target" )
-					if isElement(ptarget) then
-						x, y, z = getElementPosition( ptarget )
-						px, py, pz = getElementPosition( ped )
+				if (getElementData (ped, "target") ~= nil) then	
+					local ptarget = getElementData(ped, "target")
+					if isElement(ptarget) then	
+						x,
+						y,
+						z = getElementPosition(ptarget)
+						px,
+						py,
+						pz = getElementPosition(ped)
 					else
-						setElementData ( ped, "status", "idle" )
-						x, y, z = getElementPosition( ped )
-						px, py, pz = getElementPosition( ped )
+						setElementData(ped, "status", "idle")
+						x,
+						y,
+						z = getElementPosition(ped)
+						px,
+						py,
+						pz = getElementPosition(ped)
 					end
-					zombangle = ( 360 - math.deg ( math.atan2 ( ( x - px ), ( y - py ) ) ) ) % 360 --MAGIC SPELL TO MAKE PEDS LOOK AT YOU
-					setPedRotation( ped, zombangle )
-				elseif ( getElementData ( ped, "target" ) == nil ) and (getElementData ( ped, "Tx" ) ~= false) then --IF THE PED IS AFTER THE PLAYERS LAST KNOWN WHEREABOUTS
-					x = getElementData ( ped, "Tx" )
-					y = getElementData ( ped, "Ty" )
-					z = getElementData ( ped, "Tz" )
-					px, py, pz = getElementPosition( ped )
-					zombangle = ( 360 - math.deg ( math.atan2 ( ( x - px ), ( y - py ) ) ) ) % 360 --MAGIC SPELL TO MAKE PEDS LOOK AT YOU
-					setPedRotation( ped, zombangle )
+					zombangle = (360 - math.deg (math.atan2 ((x - px), (y - py))))
+					%
+					360
+					--MAGIC SPELL TO MAKE PEDS LOOK AT YOU
+					setPedRotation(ped, zombangle)
+				elseif (getElementData (ped, "target") == nil) and(getElementData (ped, "Tx") ~= false) then	
+					--IF THE PED IS AFTER THE PLAYERS LAST KNOWN WHEREABOUTS
+					x = getElementData(ped, "Tx")
+					y = getElementData(ped, "Ty")
+					z = getElementData(ped, "Tz")
+					px,
+					py,
+					pz = getElementPosition(ped)
+					zombangle = (360 - math.deg (math.atan2 ((x - px), (y - py))))
+					%
+					360
+					--MAGIC SPELL TO MAKE PEDS LOOK AT YOU
+					setPedRotation(ped, zombangle)
 				end
 			end
 		end
@@ -452,515 +700,568 @@ function setangle ()
 end
 
 --SETS THE ZOMBIE ACTIVITY WHEN STATUS CHANGES
-addEventHandler ( "onElementDataChange", getRootElement(),
-function ( dataName )
-	if getElementType ( source ) == "ped" and dataName == "status" then
-		if (getElementData (source, "zombie") == true) then
-			if ( isPedDead ( source ) == false ) then
-				if (getElementData ( source, "status" ) ==  "chasing" ) then
-					local Zx, Zy, Zz = getElementPosition( source )
-					setTimer ( Zomb_chase, 1000, 1, source, Zx, Zy, Zz )
-					local newtarget = (getElementData ( source, "target" ))
-					if isElement (newtarget) then
-						if getElementType ( newtarget ) == "player" then
-							setElementSyncer ( source, newtarget )
-						end
-					end
-					zmoan(source)
-				elseif (getElementData ( source, "status" ) ==  "idle" ) then
-					setTimer ( Zomb_Idle, 1000, 1, source)
-				elseif (getElementData ( source, "status" ) ==  "throatslashing" ) then
-					local tx,ty,tz = getElementPosition( source )
-					local ptarget = getElementData ( source, "target" )
-					if isElement(ptarget) then
-						local vx,vy,vz = getElementPosition( ptarget )
-						local zombdistance = (getDistanceBetweenPoints3D (tx, ty, tz, vx, vy, vz))
-						if (zombdistance < .8) then
-							zmoan(source)
-							setPedAnimation ( source, "knife", "KILL_Knife_Player", -1, false, false, true)
-							setPedAnimation ( ptarget, "knife", "KILL_Knife_Ped_Damage", -1, false, false, true)
-							setTimer ( Playerthroatbitten, 2300, 1, ptarget, source) 
-							setTimer ( function (source) if ( isElement ( source ) ) then setElementData ( source, "status", "idle" ) end end, 5000, 1, source )
-						else
-							setElementData ( source, "status", "idle" )
-						end
-					else
-						setElementData ( source, "status", "idle" )
-					end
-				end
-			elseif (getElementData ( source, "status" ) ==  "dead" ) then
-				setTimer ( Zomb_delete, 10000, 1, source)
-			end
-		end
-	end
-end)
-
+addEventHandler("onElementDataChange", getRootElement(), function (dataName) if getElementType (source) == "ped" and dataName == "status" then if (getElementData (source, "zombie") == true) then if (isPedDead (source) == false) then if (getElementData (source, "status") == "chasing") then local Zx, Zy, Zz = getElementPosition(source) setTimer (Zomb_chase, 1000, 1, source, Zx, Zy, Zz) local newtarget = (getElementData (source, "target")) if isElement (newtarget) then if getElementType (newtarget) == "player" then setElementSyncer (source, newtarget) end end zmoan(source) elseif (getElementData (source, "status") == "idle") then setTimer (Zomb_Idle, 1000, 1, source) elseif (getElementData (source, "status") == "throatslashing") then local tx, ty, tz = getElementPosition(source) local ptarget = getElementData (source, "target") if isElement(ptarget) then local vx, vy, vz = getElementPosition(ptarget) local zombdistance = (getDistanceBetweenPoints3D (tx, ty, tz, vx, vy, vz)) if (zombdistance < 0.8) then zmoan(source) setPedAnimation (source, "knife", "KILL_Knife_Player", - 1, false, false, true) setPedAnimation (ptarget, "knife", "KILL_Knife_Ped_Damage", - 1, false, false, true) setTimer (Playerthroatbitten, 2300, 1, ptarget, source) setTimer (function (source) if (isElement (source)) then setElementData (source, "status", "idle") end end, 5000, 1, source) else setElementData (source, "status", "idle") end else setElementData (source, "status", "idle") end end elseif (getElementData (source, "status") == "dead") then setTimer (Zomb_delete, 10000, 1, source) end end end end)
 --RESOURCE START/INITIAL SETUP
-function outbreak(startedResource)
+
+function outbreak(startedResource)	
 	newZombieLimit = get("" .. getResourceName(startedResource) .. ".Zlimit")
-	if newZombieLimit ~= false then
-		if newZombieLimit > ZombieLimit then 
+	if newZombieLimit ~= false then	
+		if newZombieLimit > ZombieLimit then	
 			newZombieLimit = ZombieLimit
 		end
 	else
 		newZombieLimit = ZombieLimit
 	end
-	WoodTimer = setTimer ( WoodSetup, 2000, 1) -- CHECKS FOR BARRIERS
-	if startedResource == getThisResource() then
---		call(getResourceFromName("scoreboard"), "scoreboardAddColumn", "Zombie kills") --ADDS TO SCOREBOARD
-		local allplayers = getElementsByType ( "player" )
-		for pKey,thep in ipairs(allplayers) do
-			setElementData ( thep, "dangercount", 0 )
-		end	
-		local alivePlayers = getAlivePlayers ()
-		for playerKey, playerValue in ipairs(alivePlayers) do
-			setElementData ( playerValue, "alreadyspawned", true  )
+	WoodTimer = setTimer(WoodSetup, 2000, 1)
+	-- CHECKS FOR BARRIERS
+	if startedResource == getThisResource() then	
+		--		call(getResourceFromName("scoreboard"), "scoreboardAddColumn", "Zombie kills") --ADDS TO SCOREBOARD
+		local allplayers = getElementsByType("player")
+		for pKey, thep in ipairs(allplayers) do	
+			setElementData(thep, "dangercount", 0)
 		end
-		if ZombieSpeed == 2 then
-			MainTimer1 = setTimer ( setangle, 200, 0) -- KEEPS ZOMBIES FACING THE RIGHT DIRECTION (fast)
+		local alivePlayers = getAlivePlayers()
+		for playerKey, playerValue in ipairs(alivePlayers) do	
+			setElementData(playerValue, "alreadyspawned", true)
+		end
+		if ZombieSpeed == 2 then	
+			MainTimer1 = setTimer(setangle, 200, 0)
+			-- KEEPS ZOMBIES FACING THE RIGHT DIRECTION (fast)
 		else
-			MainTimer1 = setTimer ( setangle, 400, 0) -- KEEPS ZOMBIES FACING THE RIGHT DIRECTION
+			MainTimer1 = setTimer(setangle, 400, 0)
+			-- KEEPS ZOMBIES FACING THE RIGHT DIRECTION
 		end
-		MainTimer3 = setTimer ( clearFarZombies, 3000, 0) --KEEPS ALL THE ZOMBIES CLOSE TO PLAYERS	
-		if ZombieStreaming == 1 then
-			MainTimer2 = setTimer ( SpawnZombie, 2500, 0 ) --Spawns zombies in random locations
-		elseif ZombieStreaming == 2 then
-			MainTimer2 = setTimer ( SpawnpointZombie, 2500, 0 ) --spawns zombies in zombie spawnpoints
+		MainTimer3 = setTimer(clearFarZombies, 3000, 0)
+		--KEEPS ALL THE ZOMBIES CLOSE TO PLAYERS	
+		if ZombieStreaming == 1 then	
+			MainTimer2 = setTimer(SpawnZombie, 2500, 0)
+			--Spawns zombies in random locations
+		elseif ZombieStreaming == 2 then	
+			MainTimer2 = setTimer(SpawnpointZombie, 2500, 0)
+			--spawns zombies in zombie spawnpoints
 		end
 	end
 end
+
 addEventHandler("onResourceStart", getRootElement(), outbreak)
 
-function player_Connect()
-	setElementData ( source, "dangercount", 0 )
+function player_Connect()	
+	setElementData(source, "dangercount", 0)
 end
-addEventHandler ( "onPlayerConnect", getRootElement(), player_Connect )
 
-function WoodSetup()
-	local allcols = getElementsByType ( "colshape" ) --clears off old wood cols
-	for colKey, colValue in ipairs(allcols) do
-		if ( getElementData ( colValue, "purpose" ) =="zombiewood" ) then
+addEventHandler("onPlayerConnect", getRootElement(), player_Connect)
+
+function WoodSetup()	
+	local allcols = getElementsByType("colshape")
+	--clears off old wood cols
+	for colKey, colValue in ipairs(allcols) do	
+		if (getElementData (colValue, "purpose") == "zombiewood") then	
 			destroyElement(colValue)
 		end
-	end	
-	local allobjects = getElementsByType ( "object" ) --SETS UP ALL THE WOOD BARRIERS
-	for objectKey, objectValue in ipairs(allobjects) do
-		if ( getElementData ( objectValue, "purpose" ) =="zombiewood" ) then
-			setElementDimension ( objectValue, 26 )
-			local x,y,z = getElementPosition( objectValue )
-			local thecol = createColSphere ( x, y, z, 1.6 )
-			setElementData ( thecol, "purpose", "zombiewood" )
-			setElementParent ( thecol, objectValue )
+	end
+	local allobjects = getElementsByType("object")
+	--SETS UP ALL THE WOOD BARRIERS
+	for objectKey, objectValue in ipairs(allobjects) do	
+		if (getElementData (objectValue, "purpose") == "zombiewood") then	
+			setElementDimension(objectValue, 26)
+			local x,
+			y,
+			z = getElementPosition(objectValue)
+			local thecol = createColSphere(x, y, z, 1.6)
+			setElementData(thecol, "purpose", "zombiewood")
+			setElementParent(thecol, objectValue)
 		end
-	end	
+	end
 end
 
-function ReduceMoancount()
-	moancount = moancount-1
+function ReduceMoancount()	
+	moancount = moancount - 1
 end
 
-function zmoan(zombie)
-	if moancount < moanlimit then
-		moancount = moancount+1
-		local randnum = math.random( 1, 10 )
-		triggerClientEvent ( "Zomb_Moan", getRootElement(), zombie, randnum )
-		setTimer ( ReduceMoancount, 800, 1 )
+function zmoan(zombie)	
+	if moancount < moanlimit then	
+		moancount = moancount + 1
+		local randnum = math.random(1, 10)
+		triggerClientEvent("Zomb_Moan", getRootElement(), zombie, randnum)
+		setTimer(ReduceMoancount, 800, 1)
 	end
 end
 
 --CLEARS A DEAD ZOMBIE
-function Zomb_delete (ped)
-	if isElement(ped) then
-		if (getElementData (ped, "zombie") == true) then
-			for theKey,thePed in ipairs(everyZombie) do
-				if ped == thePed then
-					table.remove( everyZombie, theKey )
+
+function Zomb_delete(ped)	
+	if isElement(ped) then	
+		if (getElementData (ped, "zombie") == true) then	
+			for theKey, thePed in ipairs(everyZombie) do	
+				if ped == thePed then	
+					table.remove(everyZombie, theKey)
 					break
 				end
 			end
-			destroyElement ( ped )
+			destroyElement(ped)
 		end
 	end
 end
 
 --HEADSHOTS
-addEvent( "headboom", true )
-function Zheadhit ( ped,attacker, weapon, bodypart)
-	if (getElementData (ped, "zombie") == true) then
-		killPed ( ped, attacker, weapon, bodypart )
-		setPedHeadless  ( ped, true )
+addEvent("headboom", true)
+
+function Zheadhit(ped, attacker, weapon, bodypart)	
+	if (getElementData (ped, "zombie") == true) then	
+		killPed(ped, attacker, weapon, bodypart)
+		setPedHeadless(ped, true)
 	end
 end
-addEventHandler( "headboom", getRootElement(), Zheadhit )
 
+addEventHandler("headboom", getRootElement(), Zheadhit)
 --KILL FROM ZOMBIE ATTACK
-addEvent( "playereaten", true )
-function Playerinfected ( player, attacker, weapon, bodypart)
-    killPed ( player, attacker, weapon, bodypart )
-end
-addEventHandler( "playereaten", getRootElement(), Playerinfected )
+addEvent("playereaten", true)
 
+function Playerinfected(player, attacker, weapon, bodypart)	
+	killPed(player, attacker, weapon, bodypart)
+end
+
+addEventHandler("playereaten", getRootElement(), Playerinfected)
 --CHECKS FOR ZOMBIE GRABBING FROM BEHIND
-function Playerthroatbitten ( player, attacker)
-	local Zx, Zy, Zz = getElementPosition( attacker )
-	local Px, Py, Pz = getElementPosition( player )
-	local distance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-	if (distance < 1) then
-		killPed ( player, attacker, weapon, bodypart )
+
+function Playerthroatbitten(player, attacker)	
+	local Zx,
+	Zy,
+	Zz = getElementPosition(attacker)
+	local Px,
+	Py,
+	Pz = getElementPosition(player)
+	local distance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+	if (distance < 1) then	
+		killPed(player, attacker, weapon, bodypart)
 	else
-		setPedAnimation (player)
+		setPedAnimation(player)
 	end
 end
 
 --ADJUSTS PLAYERS ZOMBIE KILL SCORE
-function deanimated( ammo, attacker, weapon, bodypart )
-	if (attacker) then
-		if (getElementType ( attacker ) == "player") and (getElementType ( source ) == "ped") then
-			if (getElementData (source, "zombie") == true) then
-				local oldZcount = getElementData ( attacker, "Zombie kills" )
-				if oldZcount ~= false then
-					setElementData ( attacker, "Zombie kills", oldZcount+1  )
-					triggerEvent ( "onZombieWasted", source, attacker, weapon, bodypart )
+
+function deanimated(ammo, attacker, weapon, bodypart)	
+	if (attacker) then	
+		if (getElementType (attacker) == "player") and(getElementType (source) == "ped") then	
+			if (getElementData (source, "zombie") == true) then	
+				local oldZcount = getElementData(attacker, "Zombie kills")
+				if oldZcount ~= false then	
+					setElementData(attacker, "Zombie kills", oldZcount + 1)
+					triggerEvent("onZombieWasted", source, attacker, weapon, bodypart)
 				else
-					setElementData ( attacker, "Zombie kills", 1  )
-					triggerEvent ( "onZombieWasted", source, attacker, weapon, bodypart )				
+					setElementData(attacker, "Zombie kills", 1)
+					triggerEvent("onZombieWasted", source, attacker, weapon, bodypart)
 				end
 			end
 		end
 	end
 end
-addEventHandler("onPedWasted", resourceRoot, deanimated)
 
+addEventHandler("onPedWasted", resourceRoot, deanimated)
 --STUFF TO ALLOW PLAYERS TO PLACE BOARDS
-function boarditup( player, key, keyState )
+
+function boarditup(player, key, keyState)	
 	local rightspot = 0
-	local allcols = getElementsByType ( "colshape" )
-	for ColKey,theCol in ipairs(allcols) do
-		if (getElementData ( theCol, "purpose" ) == "zombiewood" ) then
-			if (isElementWithinColShape ( player, theCol )) then
+	local allcols = getElementsByType("colshape")
+	for ColKey, theCol in ipairs(allcols) do	
+		if (getElementData (theCol, "purpose") == "zombiewood") then	
+			if (isElementWithinColShape (player, theCol)) then	
 				local rightcol = theCol
-				local Cx, Cy, Cz = getElementPosition( rightcol )
-				local Bx, By, Bz = getElementPosition( player )
-				woodangle = ( 360 - math.deg ( math.atan2 ( ( Cx - Bx ), ( Cy - By ) ) ) ) % 360
-				setPedRotation( player, woodangle )
-				setPedAnimation(player, "riot", "RIOT_PUNCHES", 3000, true, true, true )
-				local wx, wy, wz = getElementPosition( player )
-				setTimer( doneboarding, 2000, 1, player, rightcol, wx, wy, wz )
+				local Cx,
+				Cy,
+				Cz = getElementPosition(rightcol)
+				local Bx,
+				By,
+				Bz = getElementPosition(player)
+				woodangle = (360 - math.deg (math.atan2 ((Cx - Bx), (Cy - By))))
+				%
+				360
+				setPedRotation(player, woodangle)
+				setPedAnimation(player, "riot", "RIOT_PUNCHES", 3000, true, true, true)
+				local wx,
+				wy,
+				wz = getElementPosition(player)
+				setTimer(doneboarding, 2000, 1, player, rightcol, wx, wy, wz)
 			end
 		end
 	end
 end
-addCommandHandler ( "construct", boarditup )
-	
-function doneboarding(player, rightcol, wx, wy, wz)
+
+addCommandHandler("construct", boarditup)
+
+function doneboarding(player, rightcol, wx, wy, wz)	
 	setPedAnimation(player)
-	local newx, newy, newz = getElementPosition( player )
-	local distance = (getDistanceBetweenPoints3D( wx, wy, wz, newx, newy, newz ))			
-	if (distance < .7 ) then
-		newwood = getElementParent ( rightcol )
-		setElementDimension ( newwood, 25 )
-		setTimer( setElementDimension, 50, 1, newwood, 0)
+	local newx,
+	newy,
+	newz = getElementPosition(player)
+	local distance = (getDistanceBetweenPoints3D(wx, wy, wz, newx, newy, newz))
+	if (distance < 0.7) then	
+		newwood = getElementParent(rightcol)
+		setElementDimension(newwood, 25)
+		setTimer(setElementDimension, 50, 1, newwood, 0)
 	end
 end
 
-
 --SPAWN ZOMBIE (now can be cancelled!)
+addEvent("onZombieSpawn", true)
 
-addEvent( "onZombieSpawn", true )
-function RanSpawn_Z ( gx, gy, gz, rot)
+function RanSpawn_Z(gx, gy, gz, rot)	
 	local safezone = 0
 	local allradars = getElementsByType("radararea")
-	for theKey,theradar in ipairs(allradars) do
-		if getElementData(theradar, "zombieProof") == true then
-			if isInsideRadarArea ( theradar, gx, gy ) then
+	for theKey, theradar in ipairs(allradars) do	
+		if getElementData(theradar, "zombieProof") == true then	
+			if isInsideRadarArea(theradar, gx, gy) then	
 				safezone = 1
 			end
 		end
 	end
-	if safezone == 0 then
-		if table.getn ( everyZombie ) < newZombieLimit then
-			if not rot then
-				rot = math.random (1,359)
+	if safezone == 0 then	
+		if table.getn(everyZombie) < newZombieLimit then	
+			if not rot then	
+				rot = math.random(1, 359)
 			end
-			randomZskin = math.random ( 1, table.getn ( ZombiePedSkins ) )			
-			local zomb = createPed( tonumber( ZombiePedSkins[randomZskin] ), gx, gy, gz )
-			if zomb ~= false then
-				setElementData ( zomb, "zombie", true  )
-				table.insert( everyZombie, zomb )	
-				setTimer ( function (zomb, rot) if ( isElement ( zomb ) ) then setPedRotation ( zomb, rot ) end end, 500, 1, zomb, rot )
-				setTimer ( function (zomb) if ( isElement ( zomb ) ) then setPedAnimation ( zomb, "ped", chaseanim, -1, true, true, true ) end end, 1000, 1, zomb )
-				setTimer ( function (zomb) if ( isElement ( zomb ) ) then setElementData ( zomb, "status", "idle" ) end end, 2000, 1, zomb )
-				triggerClientEvent ( "Zomb_STFU", getRootElement(), zomb )
+			randomZskin = math.random(1, table.getn (ZombiePedSkins))
+			local zomb = createPed(tonumber(ZombiePedSkins[randomZskin]), gx, gy, gz)
+			if zomb ~= false then	
+				setElementData(zomb, "zombie", true)
+				table.insert(everyZombie, zomb)
+				setTimer(function (zomb, rot) if (isElement (zomb)) then setPedRotation (zomb, rot) end end, 500, 1, zomb, rot)
+				setTimer(function (zomb) if (isElement (zomb)) then setPedAnimation (zomb, "ped", chaseanim, - 1, true, true, true) end end, 1000, 1, zomb)
+				setTimer(function (zomb) if (isElement (zomb)) then setElementData (zomb, "status", "idle") end end, 2000, 1, zomb)
+				triggerClientEvent("Zomb_STFU", getRootElement(), zomb)
 			end
 		end
 	end
 end
-addEventHandler( "onZombieSpawn", getRootElement(), RanSpawn_Z )
 
-
+addEventHandler("onZombieSpawn", getRootElement(), RanSpawn_Z)
 --SPAWNS ZOMBIES RANDOMLY NEAR PLAYERS
-function SpawnZombie ()
+
+function SpawnZombie()	
 	local pacecount = 0
-	while pacecount < 5 do	--4 ZOMBIES AT A TIME TO PREVENT FPS DROP
-		if (table.getn( everyZombie )+pacecount < newZombieLimit ) and (ZombieStreaming == 1) then	
+	while pacecount < 5
+	do	
+		--4 ZOMBIES AT A TIME TO PREVENT FPS DROP
+		if (table.getn(everyZombie) + pacecount < newZombieLimit) and(ZombieStreaming == 1) then	
 			local xcoord = 0
 			local ycoord = 0
-			local xdirection = math.random(1,2)
-			if xdirection == 1 then
-				xcoord = math.random(15,40)
+			local xdirection = math.random(1, 2)
+			if xdirection == 1 then	
+				xcoord = math.random(15, 40)
 			else
-				xcoord = math.random(-40,-15)
+				xcoord = math.random(- 40, - 15)
 			end
-			local ydirection = math.random(1,2)
-			if ydirection == 1 then
-				ycoord = math.random(15,40)
+			local ydirection = math.random(1, 2)
+			if ydirection == 1 then	
+				ycoord = math.random(15, 40)
 			else
-				ycoord = math.random(-40,-15)
+				ycoord = math.random(- 40, - 15)
 			end
-			local liveplayers = getAlivePlayers ()
-			if (table.getn( liveplayers ) > 0 ) then
+			local liveplayers = getAlivePlayers()
+			if (table.getn(liveplayers) > 0) then	
 				local lowestcount = 99999
 				local lowestguy = nil
-				for PKey,thePlayer in ipairs(liveplayers) do
-					if isElement(thePlayer) then
-						if (getElementData (thePlayer, "dangercount")) and (getElementData(thePlayer, "zombieProof") ~= true) and (getElementData(thePlayer, "alreadyspawned" ) == true) then
-							if (getElementData (thePlayer, "dangercount") < lowestcount) then
+				for PKey, thePlayer in ipairs(liveplayers) do	
+					if isElement(thePlayer) then	
+						if (getElementData (thePlayer, "dangercount")) and(getElementData(thePlayer, "zombieProof") ~= true) and(getElementData(thePlayer, "alreadyspawned") == true) then	
+							if (getElementData (thePlayer, "dangercount") < lowestcount) then	
 								local safezone = 0
-								local gx, gy, gz = getElementPosition( thePlayer )
+								local gx,
+								gy,
+								gz = getElementPosition(thePlayer)
 								local allradars = getElementsByType("radararea")
-								for theKey,theradar in ipairs(allradars) do
-									if getElementData(theradar, "zombieProof") == true then
-										if isInsideRadarArea ( theradar, gx, gy ) then
+								for theKey, theradar in ipairs(allradars) do	
+									if getElementData(theradar, "zombieProof") == true then	
+										if isInsideRadarArea(theradar, gx, gy) then	
 											safezone = 1
 										end
 									end
 								end
-								if safezone == 0 then
+								if safezone == 0 then	
 									lowestguy = thePlayer
-									lowestcount = getElementData (thePlayer, "dangercount")
+									lowestcount = getElementData(thePlayer, "dangercount")
 								end
 							end
 						end
 					end
 				end
-				pacecount = pacecount+1
-				if isElement(lowestguy) then
-					triggerClientEvent ( "Spawn_Placement", lowestguy, ycoord, xcoord )
+				pacecount = pacecount + 1
+				if isElement(lowestguy) then	
+					triggerClientEvent("Spawn_Placement", lowestguy, ycoord, xcoord)
 				else
-					pacecount = pacecount+1
+					pacecount = pacecount + 1
 				end
 			else
-				pacecount = pacecount+1
+				pacecount = pacecount + 1
 			end
 		else
-			pacecount = pacecount+1
+			pacecount = pacecount + 1
 		end
 	end
 end
 
 --SPAWNS ZOMBIES IN SPAWNPOINTS NEAR PLAYERS
-function SpawnpointZombie ()
+
+function SpawnpointZombie()	
 	local pacecount = 0
-	while pacecount < 6 do	--5 ZOMBIES AT A TIME TO PREVENT FPS DROP
-		if (table.getn( everyZombie )+pacecount < newZombieLimit ) and (ZombieStreaming == 2) then	
-			local liveplayers = getAlivePlayers ()
-			if (table.getn( liveplayers ) > 0 ) then
+	while pacecount < 6
+	do	
+		--5 ZOMBIES AT A TIME TO PREVENT FPS DROP
+		if (table.getn(everyZombie) + pacecount < newZombieLimit) and(ZombieStreaming == 2) then	
+			local liveplayers = getAlivePlayers()
+			if (table.getn(liveplayers) > 0) then	
 				local lowestcount = 99999
 				local lowestguy = nil
-				for PKey,thePlayer in ipairs(liveplayers) do --THIS PART GETS THE PLAYER WITH THE LEAST ZOMBIES ATTACKING
-					if (getElementData (thePlayer, "dangercount")) and (getElementData(thePlayer, "zombieProof") ~= true) then
-						if (getElementData (thePlayer, "dangercount") < lowestcount) then
+				for PKey, thePlayer in ipairs(liveplayers) do	
+					--THIS PART GETS THE PLAYER WITH THE LEAST ZOMBIES ATTACKING
+					if (getElementData (thePlayer, "dangercount")) and(getElementData(thePlayer, "zombieProof") ~= true) then	
+						if (getElementData (thePlayer, "dangercount") < lowestcount) then	
 							lowestguy = thePlayer
-							lowestcount = getElementData (thePlayer, "dangercount")
+							lowestcount = getElementData(thePlayer, "dangercount")
 						end
 					end
 				end
-				if isElement(lowestguy) then
-					local zombiespawns = { }
-					local possiblezombies = getElementsByType ( "Zombie_spawn" )
-					local Px, Py, Pz = getElementPosition( lowestguy )
-					for ZombKey,theZomb in ipairs(possiblezombies) do
-						local Zx, Zy, Zz = getElementPosition( theZomb )
-						local distance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-						if (distance < 8) then
-							table.remove( possiblezombies, ZombKey) --IF SPAWN IS TOO CLOSE TO ANY PLAYER
+				if isElement(lowestguy) then	
+					local zombiespawns = {}
+					local possiblezombies = getElementsByType("Zombie_spawn")
+					local Px,
+					Py,
+					Pz = getElementPosition(lowestguy)
+					for ZombKey, theZomb in ipairs(possiblezombies) do	
+						local Zx,
+						Zy,
+						Zz = getElementPosition(theZomb)
+						local distance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+						if (distance < 8) then	
+							table.remove(possiblezombies, ZombKey)
+							--IF SPAWN IS TOO CLOSE TO ANY PLAYER
 						end
 					end
-					local Px, Py, Pz = getElementPosition( lowestguy )
-					for ZombKey2,theZomb2 in ipairs(possiblezombies) do
-						local Zx, Zy, Zz = getElementPosition( theZomb2 )
-						local distance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-						if (distance < 60) then --AS LONG AS THE SPAWN IS CLOSE ENOUGH TO A PLAYER
-							table.insert( zombiespawns, theZomb2 )
+					local Px,
+					Py,
+					Pz = getElementPosition(lowestguy)
+					for ZombKey2, theZomb2 in ipairs(possiblezombies) do	
+						local Zx,
+						Zy,
+						Zz = getElementPosition(theZomb2)
+						local distance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+						if (distance < 60) then	
+							--AS LONG AS THE SPAWN IS CLOSE ENOUGH TO A PLAYER
+							table.insert(zombiespawns, theZomb2)
 						end
 					end
-					if (table.getn( zombiespawns ) >0 ) then--IF THE LOWEST PLAYER HAS ANY CLOSE SPAWNS,USE ONE
-						local random = math.random ( 1, table.getn ( zombiespawns ) )
-						local posX = getElementData(zombiespawns[random], "posX") 
-						local posY = getElementData(zombiespawns[random], "posY") 
+					if (table.getn(zombiespawns) > 0)
+					then--IF THE LOWEST PLAYER HAS ANY CLOSE SPAWNS,USE ONE
+					local random = math.random(1, table.getn (zombiespawns))
+					local posX = getElementData(zombiespawns[random], "posX")
+					local posY = getElementData(zombiespawns[random], "posY")
+					local posZ = getElementData(zombiespawns[random], "posZ")
+					local rot = getElementData(zombiespawns[random], "rotZ")
+					pacecount = pacecount + 1
+					triggerEvent("onZombieSpawn", zombiespawns[random], posX, posY, posZ, rot)
+					else--IF THE LOWEST PLAYERS DOESNT HAVE ANY SPAWNS, THEN SEE IF ANYONE HAS ANY
+					local zombiespawns = {}
+					local possiblezombies = getElementsByType("Zombie_spawn")
+					local allplayers = getAlivePlayers()
+					for theKey, thePlayer in ipairs(allplayers) do	
+						local Px,
+						Py,
+						Pz = getElementPosition(thePlayer)
+						for ZombKey, theZomb in ipairs(possiblezombies) do	
+							local Zx,
+							Zy,
+							Zz = getElementPosition(theZomb)
+							local distance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+							if (distance < 8) then	
+								table.remove(possiblezombies, ZombKey)
+								--IF SPAWN IS TOO CLOSE TO ANY PLAYER
+							end
+						end
+					end
+					for theKey, thePlayer in ipairs(allplayers) do	
+						local Px,
+						Py,
+						Pz = getElementPosition(thePlayer)
+						for ZombKey2, theZomb2 in ipairs(possiblezombies) do	
+							local Zx,
+							Zy,
+							Zz = getElementPosition(theZomb2)
+							local distance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+							if (distance < 60) then	
+								--AS LONG AS THE SPAWN IS CLOSE ENOUGH TO A PLAYER
+								table.insert(zombiespawns, theZomb2)
+							end
+						end
+					end
+					if (table.getn(zombiespawns) > 1) then	
+						local random = math.random(1, table.getn (zombiespawns))
+						local posX = getElementData(zombiespawns[random], "posX")
+						local posY = getElementData(zombiespawns[random], "posY")
 						local posZ = getElementData(zombiespawns[random], "posZ")
 						local rot = getElementData(zombiespawns[random], "rotZ")
-						pacecount = pacecount+1
-						triggerEvent ( "onZombieSpawn",zombiespawns[random], posX, posY, posZ, rot )			
-					else--IF THE LOWEST PLAYERS DOESNT HAVE ANY SPAWNS, THEN SEE IF ANYONE HAS ANY
-						local zombiespawns = { }
-						local possiblezombies = getElementsByType ( "Zombie_spawn" )
-						local allplayers = getAlivePlayers ()
-						for theKey,thePlayer in ipairs(allplayers) do
-							local Px, Py, Pz = getElementPosition( thePlayer )
-							for ZombKey,theZomb in ipairs(possiblezombies) do
-								local Zx, Zy, Zz = getElementPosition( theZomb )
-								local distance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-								if (distance < 8) then
-									table.remove( possiblezombies, ZombKey) --IF SPAWN IS TOO CLOSE TO ANY PLAYER
-								end
-							end
-						end
-						for theKey,thePlayer in ipairs(allplayers) do
-							local Px, Py, Pz = getElementPosition( thePlayer )
-							for ZombKey2,theZomb2 in ipairs(possiblezombies) do
-								local Zx, Zy, Zz = getElementPosition( theZomb2 )
-								local distance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-								if (distance < 60) then --AS LONG AS THE SPAWN IS CLOSE ENOUGH TO A PLAYER
-									table.insert( zombiespawns, theZomb2 )
-								end
-							end
-						end
-						if (table.getn( zombiespawns ) >1 ) then
-							local random = math.random ( 1, table.getn ( zombiespawns ) )
-							local posX = getElementData(zombiespawns[random], "posX") 
-							local posY = getElementData(zombiespawns[random], "posY") 
-							local posZ = getElementData(zombiespawns[random], "posZ")
-							local rot = getElementData(zombiespawns[random], "rotZ")
-							pacecount = pacecount+1
-							triggerEvent ( "onZombieSpawn",zombiespawns[random], posX, posY, posZ, rot )			
-						else
-							pacecount = pacecount+1
-						end
+						pacecount = pacecount + 1
+						triggerEvent("onZombieSpawn", zombiespawns[random], posX, posY, posZ, rot)
+					else
+						pacecount = pacecount + 1
 					end
-				else
-					pacecount = pacecount+1
 				end
 			else
-				pacecount = pacecount+1
+				pacecount = pacecount + 1
 			end
 		else
-			pacecount = pacecount+1
+			pacecount = pacecount + 1
 		end
+	else
+		pacecount = pacecount + 1
 	end
 end
 
+end
 --DELETES ZOMBIES THAT ARE TOO FAR FROM ANY PLAYERS TO KEEP THEM MORE CONCENTRATED WHILE STREAMING ZOMBIES
-function clearFarZombies ()
-	if newZombieLimit ~= false then
-		local toofarzombies = { }
-		local allplayers = getElementsByType ( "player" )
-		for ZombKey,theZomb in ipairs(everyZombie) do
-			if isElement(theZomb) then
-				if (getElementData (theZomb, "zombie") == true) then
-					far = 1
-					local Zx, Zy, Zz = getElementPosition( theZomb )
-					for theKey,thePlayer in ipairs(allplayers) do
-						local Px, Py, Pz = getElementPosition( thePlayer )
-						local distance = (getDistanceBetweenPoints3D( Px, Py, Pz, Zx, Zy, Zz ))
-						if (distance < 75) then
-							far = 0
-						end
-					end
-					if far == 1 then
-						table.insert( toofarzombies, theZomb )
+function clearFarZombies()	
+
+if newZombieLimit ~= false then	
+	local toofarzombies = {}
+	local allplayers = getElementsByType("player")
+	for ZombKey, theZomb in ipairs(everyZombie) do	
+		if isElement(theZomb) then	
+			if (getElementData (theZomb, "zombie") == true) then	
+				far = 1
+				local Zx,
+				Zy,
+				Zz = getElementPosition(theZomb)
+				for theKey, thePlayer in ipairs(allplayers) do	
+					local Px,
+					Py,
+					Pz = getElementPosition(thePlayer)
+					local distance = (getDistanceBetweenPoints3D(Px, Py, Pz, Zx, Zy, Zz))
+					if (distance < 75) then	
+						far = 0
 					end
 				end
-			else
-				table.remove( everyZombie, ZombKey )
+				if far == 1 then	
+					table.insert(toofarzombies, theZomb)
+				end
 			end
+		else
+			table.remove(everyZombie, ZombKey)
 		end
-		if (table.getn( toofarzombies ) >1 ) then
-			for ZombKey,theZomb in ipairs(toofarzombies) do
-				if (getElementData (theZomb, "zombie") == true) and  ( getElementData ( theZomb, "forcedtoexist" ) ~= true) then
-					Zomb_delete (theZomb)
-				end
+	end
+	if (table.getn(toofarzombies) > 1) then	
+		for ZombKey, theZomb in ipairs(toofarzombies) do	
+			if (getElementData (theZomb, "zombie") == true) and(getElementData (theZomb, "forcedtoexist") ~= true) then	
+				Zomb_delete(theZomb)
 			end
 		end
 	end
 end
 
+end
 -- DESTROYS UP TO 13 ZOMBIES THAT ARE IDLE WHEN A PLAYER SPAWNS (TO FORCE NEW ZOMBIES TO SPAWN NEAR THE NEW GUY)
-function player_Spawn ()
-	if ZombieStreaming == 1 or ZombieStreaming == 2 then
-		local relocatecount = 0
-		for ZombKey,theZomb in ipairs(everyZombie) do
-			if relocatecount < 14 then
-				if ( getElementData ( theZomb, "forcedtoexist" ) ~= true) then
-					if ( getElementData ( theZomb, "status" ) == "idle" ) and ( isPedDead ( theZomb ) == false ) and (getElementData (theZomb, "zombie") == true) then
-						relocatecount = relocatecount+1
-						Zomb_delete (theZomb)
-					end
+function player_Spawn()	
+
+if ZombieStreaming == 1 or ZombieStreaming == 2 then	
+	local relocatecount = 0
+	for ZombKey, theZomb in ipairs(everyZombie) do	
+		if relocatecount < 14 then	
+			if (getElementData (theZomb, "forcedtoexist") ~= true) then	
+				if (getElementData (theZomb, "status") == "idle") and(isPedDead (theZomb) == false) and(getElementData (theZomb, "zombie") == true) then	
+					relocatecount = relocatecount + 1
+					Zomb_delete(theZomb)
 				end
 			end
 		end
 	end
-	if ( getElementData ( source, "alreadyspawned" ) ~= true) then
-		setElementData ( source, "alreadyspawned", true  )
-	end
 end
-addEventHandler ( "onPlayerSpawn", getRootElement(), player_Spawn )
 
+if (getElementData (source, "alreadyspawned") ~= true) then	
+	setElementData(source, "alreadyspawned", true)
+end
+
+end
+addEventHandler("onPlayerSpawn", getRootElement(), player_Spawn)
 --EXPORTED FUNCTIONS!!!!!!!!!!!!!!
-function createZombie ( x, y, z, rot, skin, interior, dimension )
-	if (table.getn( everyZombie ) < newZombieLimit ) then
+function createZombie(x, y, z, rot, skin, interior, dimension)	
+
+if (table.getn(everyZombie) < newZombieLimit) then	
 	--this part handles the args
-		if not x then return false end
-		if not y then return false end
-		if not z then return false end
-		if not rot then
-			rot = math.random (1,359)
-		end
-		if not skin then
-			randomZskin = math.random ( 1, table.getn ( ZombiePedSkins ) )			
-			skin = ZombiePedSkins[randomZskin]
-		end
-		if not interior then interior = 0 end
-		if not dimension then dimension = 0 end
+	if not x then	
+		return
+		false
+	end
+	if not y then	
+		return
+		false
+	end
+	if not z then	
+		return
+		false
+	end
+	if not rot then	
+		rot = math.random(1, 359)
+	end
+	if not skin then	
+		randomZskin = math.random(1, table.getn (ZombiePedSkins))
+		skin = ZombiePedSkins[randomZskin]
+	end
+	if not interior then	
+		interior = 0
+	end
+	if not dimension then	
+		dimension = 0
+	end
 	--this part spawns the ped
-		local zomb = createPed (tonumber(skin),tonumber(x),tonumber(y),tonumber(z))--spawns the ped
+	local zomb = createPed(tonumber(skin), tonumber(x), tonumber(y), tonumber(z))--spawns the ped
 	--if successful, this part applies the zombie settings/args
-		if (zomb ~= false) then
-			setTimer ( setElementInterior, 100, 1, zomb, tonumber(interior)) --sets interior
-			setTimer ( setElementDimension, 100, 1, zomb, tonumber(dimension)) --sets dimension
-			setElementData ( zomb, "zombie", true  )
-			setElementData ( zomb, "forcedtoexist", true  )
-			setTimer ( function (zomb, rot) if ( isElement ( zomb ) ) then setPedRotation ( zomb, rot ) end end, 500, 1, zomb, rot )
-			setTimer ( function (zomb) if ( isElement ( zomb ) ) then setElementData ( zomb, "status", "idle" ) end end, 2000, 1, zomb )
-			setTimer ( function (zomb) if ( isElement ( zomb ) ) then setElementData ( zomb, "forcedtoexist", true ) end end, 1000, 1, zomb )
-			setTimer ( function (zomb) if ( isElement ( zomb ) ) then table.insert( everyZombie, zomb ) end end, 1000, 1, zomb )
-			triggerClientEvent ( "Zomb_STFU", getRootElement(), zomb )
-			return zomb --returns the zombie element
-		else
-			return false --returns false if there was a problem
-		end
+	if (zomb ~= false) then	
+		setTimer(setElementInterior, 100, 1, zomb, tonumber(interior))
+		--sets interior
+		setTimer(setElementDimension, 100, 1, zomb, tonumber(dimension))
+		--sets dimension
+		setElementData(zomb, "zombie", true)
+		setElementData(zomb, "forcedtoexist", true)
+		setTimer(function (zomb, rot) if (isElement (zomb)) then setPedRotation (zomb, rot) end end, 500, 1, zomb, rot)
+		setTimer(function (zomb) if (isElement (zomb)) then setElementData (zomb, "status", "idle") end end, 2000, 1, zomb)
+		setTimer(function (zomb) if (isElement (zomb)) then setElementData (zomb, "forcedtoexist", true) end end, 1000, 1, zomb)
+		setTimer(function (zomb) if (isElement (zomb)) then table.insert(everyZombie, zomb) end end, 1000, 1, zomb)
+		triggerClientEvent("Zomb_STFU", getRootElement(), zomb)
+		return
+		zomb
+		--returns the zombie element
 	else
-		return false --returns false if there was a problem
+		return
+		false
+		--returns false if there was a problem
 	end
+else
+	return
+	false
+	--returns false if there was a problem
 end
 
+end
 --check if a ped is a zombie or not
-function isPedZombie(ped)
-	if (isElement(ped)) then
-		if (getElementData (ped, "zombie") == true) then
-			return true
-		else
-			return false
-		end
+function isPedZombie(ped)	
+
+if (isElement(ped)) then	
+	if (getElementData (ped, "zombie") == true) then	
+		return
+		true
 	else
-		return false
+		return
+		false
 	end
+else
+	return
+	false
 end
 
-addEvent( "onZombieLostPlayer", true )
-function ZombieTargetCoords ( x,y,z )
-	setElementData ( source, "Tx", x, false )
-	setElementData ( source, "Ty", y, false )
-	setElementData ( source, "Tz", z, false )
 end
-addEventHandler( "onZombieLostPlayer", getRootElement(), ZombieTargetCoords )
+addEvent("onZombieLostPlayer", true)
+function ZombieTargetCoords(x, y, z)	
+setElementData(source, "Tx", x, false)
+setElementData(source, "Ty", y, false)
+setElementData(source, "Tz", z, false)
+end
+addEventHandler("onZombieLostPlayer", getRootElement(), ZombieTargetCoords)
