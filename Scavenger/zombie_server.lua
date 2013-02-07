@@ -7,7 +7,7 @@ ZombieLimit = get("zombies.MaxZombies")
 ZombieSpeed = get("zombies.Speed")
 --Skin IDs
 
-ZombiePedSkins = 
+ZombieSkins = 
 {
 	13,
 	22,
@@ -130,8 +130,6 @@ PlayerSkins =
 	283,
 }
 
---Spawn locations
-
 LVSpawns = 
 {
 	{
@@ -189,7 +187,6 @@ SFSpawns =
 	},
 }
 
---Pickup locations
 createPickup(1985.5615234375, - 1780.755859375, 13.55017375946, 2, 5, 120000, 1)
 --Bat
 createPickup(2062.884765625, - 1785.712890625, 13.546875, 1, 100, 120000)
@@ -222,11 +219,10 @@ createPickup(985.9228515625, 1931.3994140625, 11.46875, 2, 8, 120000, 1)
 --LV Katana
 createPickup(2126.8984375, 2376.6328125, 10.8203125, 2, 24, 120000, 14)
 --LV Desert Eagle
---Events
+
 addEvent("onAttemptLogin", true)
 addEvent("onAttemptRegister", true)
 addEvent("onZombieWasted", false)
---Command Handlers
 
 function savePOS(playerSource, command, name)	
 	if playerSource then	
@@ -256,15 +252,11 @@ function teleportPlayer(playerSource, command, playerName)
 	if playerSource and playerName then	
 		local targetPlayer = getPlayerFromName(playerName)
 		if (targetPlayer) then	
-			local x,
-			y,
-			z = getElementPosition(targetPlayer)
-			spawnPlayer(playerSource, x + 2, y, z)
-			fadeCamera(playerSource, true)
-			setCameraTarget(playerSource, playerSource)
-			outputChatBox("Teleported")
+			local x, y, z = getElementPosition(targetPlayer)
+                        setElementPosition ( playerSource, x, y, z + 3, true )
+			outputChatBox("Teleported", playerSource)
 		else
-			outputChatBox("Could not find player")
+			outputChatBox("Could not find player", playerSource)
 		end
 	end
 end
@@ -272,44 +264,45 @@ end
 addCommandHandler("teleplayer", teleportPlayer, false, false)
 
 function spawnWeapon(playerSource, command, weaponID, weaponAmmo)	
-	outputChatBox("Please specify a name, /asd name", playerSource)
-	if playerSource then	
-		if weaponID and weaponAmmo then	
-			giveWeapon(playerSource, weaponID, weaponAmmo)
-		else
-			giveWeapon(playerSource, 38, 5000)
-		end
-	end
+	if playerSource and weaponID and weaponAmmo then	
+            giveWeapon(playerSource, weaponID, weaponAmmo)
+	else
+            outputChatBox("Syntax: /spawnwep [ID] [AMMO]", playerSource)
+        end
 end
 
 addCommandHandler("spawnwep", spawnWeapon, false, false)
 
 function spawnCar(playerSource, command, vehID)	
-	if playerSource then	
-		local x,
-		y,
-		z = getElementPosition(playerSource)
-		if x and y and z then	
-			x = x + 5
-			if vehID then	
-				createVehicle(vehID, x, y, z)
-			else
-				createVehicle(508, x, y, z)
-			end
-		end
-	end
+	if playerSource and vehID then	
+            local x, y, z = getElementPosition(playerSource)	
+            createVehicle(vehID, x + 5, y, z)
+	else
+            outputChatBox("Syntax: /spawncar [ID]", playerSource)
+        end
 end
 
 addCommandHandler("spawncar", spawnCar, false, false)
---Handles player death
 
-function playerKilled(totalAmmo, killer, killerWeapon, bodypart)	
+function playerKilled(totalAmmo, killer, killerWeapon, bodypart)
+        local x, y, z = getElementPosition(source)
+        for index = 0, 12, 1 do	
+            local weaponID = getPedWeapon(source, index)
+            local weaponAmmo = getPedTotalAmmo(source, index)
+            if weaponID and weaponAmmo then
+                createPickup ( x + math.random(1.0, 3.0), y + math.random(1.0, 3.0), z, 2, weaponID, 100000, weaponAmmo)
+            end
+	end
 	local playerMoney = getPlayerMoney(source)
-	if playerMoney and playerMoney > 100 then	
-		takePlayerMoney(source, playerMoney / 2)
+	if playerMoney and playerMoney > 100 then
+                local moneyTaken = playerMoney / 2
+                if bodypart == 9 then
+                    moneyTaken = moneyTaken * 2
+                end
+		takePlayerMoney(source, moneyTaken)
 		if (killer) then	
 			if getElementType(killer) == "player" then	
-				givePlayerMoney(killer, playerMoney / 2)
+				givePlayerMoney(killer, moneyTaken)
 			end
 		end
 	end
@@ -319,42 +312,30 @@ function playerKilled(totalAmmo, killer, killerWeapon, bodypart)
 		triggerClientEvent(source, "onZombieWasted", getRootElement(), 0)
 	end
 	setElementData(source, "model", PlayerSkins[math.random(table.getn(PlayerSkins))])
-	spawnPlayer(source)
+	finaliseSpawn(source)
 end
 
 addEventHandler("onPlayerWasted", getRootElement(), playerKilled)
---Spawns player at location
 
-function spawnPlayer(x, y, z)	
+function finaliseSpawn(x, y, z)	
 	if x and y and z then	
 		spawnPlayer(source, x, y, z)
 	else
 		local city = math.random(0, 2)
+                local spawn = nil
 		if city == 0 then	
-			local spawnLocation = LVSpawns[math.random(table.getn(LVSpawns))]
-			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			if spawnLocation then	
-				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			end
+			spawn = LVSpawns[math.random(table.getn(LVSpawns))]
 		elseif city == 1 then	
-			local spawnLocation = LSSpawns[math.random(table.getn(LSSpawns))]
-			spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			if spawnLocation then	
-				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			end
+			spawn = LSSpawns[math.random(table.getn(LSSpawns))]
 		elseif city == 2 then	
-			local spawnLocation = SFSpawns[math.random(table.getn(SFSpawns))]
-			if spawnLocation then	
-				spawnPlayer(source, spawnLocation.x, spawnLocation.y, spawnLocation.z)
-			end
+			spawn = SFSpawns[math.random(table.getn(SFSpawns))]
 		end
+                spawnPlayer(source, spawn.x, spawn.y, spawn.z)
 	end
 	setElementModel(source, getElementData(source, "model"))
 	fadeCamera(source, true)
 	setCameraTarget(source, source)
 end
-
---Login
 
 function loginPlayer(username, password)	
 	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then	
@@ -370,7 +351,6 @@ function loginPlayer(username, password)
 end
 
 addEventHandler("onAttemptLogin", getRootElement(), loginPlayer)
---Register
 
 function registerPlayer(username, password)	
 	if username ~= nil and username ~= "" and password ~= nil and password ~= "" then	
@@ -382,7 +362,7 @@ function registerPlayer(username, password)
 		else
 			if addAccount(username, password) ~= false then	
 				triggerClientEvent("onSuccessfulLogin", getRootElement())
-				spawnPlayer()
+				finaliseSpawn()
 			else
 				triggerClientEvent("onUnsuccessfulLogin", getRootElement(), "Failed to create account")
 			end
@@ -459,9 +439,9 @@ function loadPlayer(account)
 			local y = getAccountData(account, "zombies.pY")
 			local z = getAccountData(account, "zombies.pZ")
 			if x and y and z then	
-				spawnPlayer(x, y, z + 2)
+				finaliseSpawn(x, y, z + 2)
 			else
-				spawnPlayer()
+				finaliseSpawn()
 			end
 			for index = 0, 12, 1 do	
 				local weaponID = getAccountData(account, "zombies.weaponid" .. index)
@@ -487,7 +467,11 @@ function updateKillcount(attacker, weapon, bodypart)
 	if killCount then	
 		triggerClientEvent(attacker, "onZombieWasted", getRootElement(), killCount)
 	end
-	givePlayerMoney(attacker, math.random(5) * math.random(5) + 5)
+        if bodypart == 9 then
+            givePlayerMoney(attacker, (math.random(5) * math.random(5) + 5) * 9)
+        else
+            givePlayerMoney(attacker, math.random(5) * math.random(5) + 5)
+        end
 end
 
 addEventHandler("onZombieWasted", getRootElement(), updateKillcount)
@@ -921,8 +905,8 @@ function RanSpawn_Z(gx, gy, gz, rot)
 			if not rot then	
 				rot = math.random(1, 359)
 			end
-			randomZskin = math.random(1, table.getn (ZombiePedSkins))
-			local zomb = createPed(tonumber(ZombiePedSkins[randomZskin]), gx, gy, gz)
+			randomZskin = math.random(1, table.getn (ZombieSkins))
+			local zomb = createPed(tonumber(ZombieSkins[randomZskin]), gx, gy, gz)
 			if zomb ~= false then	
 				setElementData(zomb, "zombie", true)
 				table.insert(everyZombie, zomb)
@@ -1202,8 +1186,8 @@ if (table.getn(everyZombie) < newZombieLimit) then
 		rot = math.random(1, 359)
 	end
 	if not skin then	
-		randomZskin = math.random(1, table.getn (ZombiePedSkins))
-		skin = ZombiePedSkins[randomZskin]
+		randomZskin = math.random(1, table.getn (ZombieSkins))
+		skin = ZombieSkins[randomZskin]
 	end
 	if not interior then	
 		interior = 0
