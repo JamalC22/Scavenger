@@ -6,6 +6,7 @@
 [2] Make new food/water items
 [2] Add fuel system for cars.
 [2] Add ammunation interior to purchase guns with earned money
+[1] Make Vehicles Lockable
 [1] Make Classes
 	- Mechanic Class that can repair cars and break into locked ones
 	- Medic Class that can heal players for more
