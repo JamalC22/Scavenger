@@ -8,8 +8,8 @@
 	<info author="The Nose Family" type="Scavenger" name="Jews Only" description="No Moneygrubbing" />
 	<script src="scavenger_players.lua" />
 	<script src="scavenger_commands.lua" />
-	<script src="zombie_server.lua" />
 	<script src="scavenger_spawns.lua" />
+	<script src="zombie_server.lua" />
 	<script src="zombie_client.lua" type="client"/>
 	<file src="zombiewood.png" />
 	<file src="skins/13.txd" />

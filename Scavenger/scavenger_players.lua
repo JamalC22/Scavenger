@@ -150,8 +150,15 @@ SFSpawns =
 }
 
 function player_Handshake(playerName)
+	showPlayerHudComponent(source, "clock", false)
+	showPlayerHudComponent(source, "vehicle_name", false)
+	showPlayerHudComponent(source, "radar", false)
+	showPlayerHudComponent(source, "area_name", false)
+--pickup cameraloc1:-425.1396484375,1227.748046875,30.504163742065
+--pickup cameraloc2:-545.6201171875,1201.0107421875,27.65991973877
 	fadeCamera(source, true, 5)
-	setCameraMatrix(source, 1468.8785400391, -919.25317382813, 100.153465271, 1468.388671875, -918.42474365234, 99.881813049316)
+	setCameraMatrix(source, -425.1396484375,1227.748046875,30.504163742065, -545.6201171875,1201.0107421875,27.65991973877)
+	--setCameraMatrix(source, -2713.6640625,2489.2666015625,139.341064453125, -2398.6474609375,2215.0458984375,5.1165962219238)
 	if getAccount(playerName) then
 		triggerClientEvent(source, "showLoginGUI", getRootElement(), true)
 	else
@@ -171,7 +178,6 @@ addEventHandler("onZombieWasted", getRootElement(), zombieKilled)
 
 function onAttemptRegister(name, password)
 	if not getAccount(name) then
-		outputChatBox("account not found")
 		if addAccount(name, password) then
 			triggerClientEvent(source, "showLoginGUI", getRootElement(), true)
 		end

@@ -45,6 +45,20 @@ end
 
 addCommandHandler("teleplayer", teleportPlayer, false, false)
 
+function locPlayer(playerSource, command, playerName)	
+	if playerSource and playerName then	
+		local targetPlayer = getPlayerFromName(playerName)
+		if (targetPlayer) then	
+			local x, y, z = getElementPosition(targetPlayer)
+			outputChatBox(getZoneName ( x, y, z ), playerSource)
+		else
+			outputChatBox("Could not find player", playerSource)
+		end
+	end
+end
+
+addCommandHandler("loc", locPlayer, false, false)
+
 function spawnWeapon(playerSource, command, weaponID, weaponAmmo)	
 	if playerSource and weaponID and weaponAmmo then	
             giveWeapon(playerSource, weaponID, weaponAmmo)
@@ -57,8 +71,8 @@ addCommandHandler("spawnwep", spawnWeapon, false, false)
 
 function spawnCar(playerSource, command, vehID)	
 	if playerSource and vehID then	
-            local x, y, z = getElementPosition(playerSource)	
-            createVehicle(vehID, x + 5, y, z)
+            local x, y, z = getElementPosition(playerSource)
+			setVehicleLandingGearDown(createVehicle(vehID, x + 5, y, z),false)
 	else
             outputChatBox("Syntax: /spawncar [ID]", playerSource)
         end

@@ -13,8 +13,10 @@ addEventHandler("onClientResourceStart", getRootElement(), initiate_Handshake)
 
 loginWidth, loginHeight = guiGetScreenSize()
 
-loginGUI = guiCreateWindow((loginWidth / 2) - (250 / 2), (loginHeight / 2) - (75 / 2), 250, 75, "Please LOGIN " .. getPlayerName(getLocalPlayer()), false)
-loginPWEdit = guiCreateEdit(15, 30, 220, 25, "", false, loginGUI)
+--guiCreateLabel ( float x, float y, float width, float height, string text, bool relative, [element parent = nil] )
+loginGUI = guiCreateWindow((loginWidth / 2) - (250 / 2), (loginHeight / 2) - (75 / 2) - (loginHeight / 10), 250, 75, "Please LOGIN " .. getPlayerName(getLocalPlayer()), false)
+loginPWLabel = guiCreateLabel (90, 20, 220, 25, "Password:", false, loginGUI)
+loginPWEdit = guiCreateEdit(15, 40, 220, 25, "", false, loginGUI)
 guiEditSetMasked(loginPWEdit, true)
 guiEditSetMaxLength(loginPWEdit, 35)
 addEventHandler( "onClientGUIAccepted", loginPWEdit, 
@@ -23,11 +25,13 @@ addEventHandler( "onClientGUIAccepted", loginPWEdit,
 	end
 )
 
-registerGUI = guiCreateWindow((loginWidth / 2) - (250 / 2), (loginHeight / 2) - (150 / 2), 250, 150, "Please REGISTER " .. getPlayerName(getLocalPlayer()), false)
-local registerPWOneEdit = guiCreateEdit(15, 30, 220, 25, "", false, registerGUI)
+registerGUI = guiCreateWindow((loginWidth / 2) - (250 / 2), (loginHeight / 2) - (140 / 2) - (loginHeight / 10), 250, 140, "Please REGISTER " .. getPlayerName(getLocalPlayer()), false)
+registerPWOneLabel = guiCreateLabel (90, 30, 220, 25, "Password:", false, registerGUI)
+registerPWOneEdit = guiCreateEdit(15, 50, 220, 25, "", false, registerGUI)
 guiEditSetMasked(registerPWOneEdit, true)
 guiEditSetMaxLength(registerPWOneEdit, 35)
-local registerPWTwoEdit = guiCreateEdit(15, 75, 220, 25, "", false, registerGUI)
+registerPWTwoLabel = guiCreateLabel (90, 80, 220, 25, "Confirm:", false, registerGUI)
+registerPWTwoEdit = guiCreateEdit(15, 100, 220, 25, "", false, registerGUI)
 guiEditSetMasked(registerPWTwoEdit, true)
 guiEditSetMaxLength(registerPWTwoEdit, 35)
 addEventHandler( "onClientGUIAccepted", registerPWTwoEdit, 
@@ -44,6 +48,8 @@ addEventHandler( "onClientGUIAccepted", registerPWTwoEdit,
 
 addEvent("showLoginGUI", true)
 function showLoginGUI (isRegistered)
+	showChat(false)
+	setWeather(8)
 	guiSetVisible(loginGUI,false)
 	guiSetVisible(registerGUI,false)
 	if isRegistered then
@@ -62,6 +68,8 @@ addEventHandler("showLoginGUI", getRootElement(), showLoginGUI)
 
 addEvent("hideLoginGUI", true)
 function hideLoginGUI ()
+	showChat(true)
+	setWeather(10)
 	guiSetVisible(loginGUI,false)
 	guiSetVisible(registerGUI,false)
 	showCursor(false)
@@ -409,12 +417,7 @@ end
 addEventHandler ( "onClientColShapeLeave", getRootElement(), hidewoodpic )
 
 --ZOMBIES ATTACK FROM BEHIND AND GUI STUFF
-function movethroatcol ()
-	local screenWidth, screenHeight = guiGetScreenSize()
-	local dcount = tostring(table.getn( myZombies ))
-	dxDrawText( dcount, screenWidth-40, screenHeight -50, screenWidth, screenHeight, tocolor ( 0, 0, 0, 255 ), 1.44, "pricedown" )
-	dxDrawText( dcount, screenWidth-42, screenHeight -52, screenWidth, screenHeight, tocolor ( 255, 255, 255, 255 ), 1.4, "pricedown" )
-	
+function movethroatcol ()	
 	if isElement(throatcol) then
 		local playerrot = getPedRotation ( getLocalPlayer () )
 		local radRot = math.rad ( playerrot )
