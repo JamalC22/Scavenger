@@ -92,6 +92,51 @@ PlayerSkins =
 	283,
 }
 
+CameraSpawns =
+{
+	{
+		sx = -425.1396484375,
+		sy = 1227.748046875,
+		sz = 30.504163742065, 
+		tx = -545.6201171875,
+		ty = 1201.0107421875,
+		tz = 27.65991973877,
+	},
+	{
+		sx = 2713.6640625,
+		sy = 2489.2666015625,
+		sz = 139.341064453125, 
+		tx = -2398.6474609375,
+		ty = 2215.0458984375,
+		tz = 5.1165962219238,
+	},
+	{
+		sx = 2148.0234375,
+		sy = -948.2109375,
+		sz = 92.0234375, 
+		tx = 2129.79296875,
+		ty = -855.2177734375,
+		tz = 72.171875,
+	},
+	{
+		sx = 2009.9389648438,
+		sy = 389.84201049805,
+		sz = 35.790599822998, 
+		tx = -2009.9564208984,
+		ty = 390.84060668945,
+		tz = 35.740619659424,
+	},
+	---,,,,,
+	{
+		sx = 1921.2277832031,
+		sy = 332.35418701172,
+		sz = 34.307399749756, 
+		tx = -1920.5026855469,
+		ty = 332.85440063477,
+		tz = 33.834156036377,
+	},
+}
+
 LVSpawns = 
 {
 	{
@@ -150,15 +195,16 @@ SFSpawns =
 }
 
 function player_Handshake(playerName)
+	--Disable HUD
 	showPlayerHudComponent(source, "clock", false)
 	showPlayerHudComponent(source, "vehicle_name", false)
 	showPlayerHudComponent(source, "radar", false)
 	showPlayerHudComponent(source, "area_name", false)
---pickup cameraloc1:-425.1396484375,1227.748046875,30.504163742065
---pickup cameraloc2:-545.6201171875,1201.0107421875,27.65991973877
+	--Set Cameras
+	local camera = CameraSpawns[math.random(table.getn(CameraSpawns))]
 	fadeCamera(source, true, 5)
-	setCameraMatrix(source, -425.1396484375,1227.748046875,30.504163742065, -545.6201171875,1201.0107421875,27.65991973877)
-	--setCameraMatrix(source, -2713.6640625,2489.2666015625,139.341064453125, -2398.6474609375,2215.0458984375,5.1165962219238)
+	setCameraMatrix(source, camera.sx, camera.sy, camera.sz, camera.tx, camera.ty, camera.tz)
+	--Show register/login GUI
 	if getAccount(playerName) then
 		triggerClientEvent(source, "showLoginGUI", getRootElement(), true)
 	else

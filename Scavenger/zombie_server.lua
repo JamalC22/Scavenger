@@ -21,7 +21,20 @@ moancount =0
 moanlimit = 10
 everyZombie = { }
 
-outputConsole("testaaaa")
+zombiesEnabled = true
+
+function toggleZombies(playerSource, command)	
+	if zombiesEnabled then
+		zombiesEnabled = false
+		outputChatBox("Zombies disabled")
+	else
+		zombiesEnabled = true
+		outputChatBox("Zombies enabled")
+	end
+end
+
+addCommandHandler("testtest", toggleZombies, false, false)
+
 --IDLE BEHAVIOUR OF A ZOMBIE
 function Zomb_Idle (ped)
 	if isElement(ped) then
@@ -409,60 +422,62 @@ addEventHandler( "onZombieSpawn", getRootElement(), RanSpawn_Z )
 
 --SPAWNS ZOMBIES RANDOMLY NEAR PLAYERS
 function SpawnZombie ()
-	local pacecount = 0
-	while pacecount < 5 do	--4 ZOMBIES AT A TIME TO PREVENT FPS DROP
-		if (table.getn( everyZombie )+pacecount < newZombieLimit ) and (ZombieStreaming == 1) then	
-			local xcoord = 0
-			local ycoord = 0
-			local xdirection = math.random(1,2)
-			if xdirection == 1 then
-				xcoord = math.random(15,40)
-			else
-				xcoord = math.random(-40,-15)
-			end
-			local ydirection = math.random(1,2)
-			if ydirection == 1 then
-				ycoord = math.random(15,40)
-			else
-				ycoord = math.random(-40,-15)
-			end
-			local liveplayers = getAlivePlayers ()
-			if (table.getn( liveplayers ) > 0 ) then
-				local lowestcount = 99999
-				local lowestguy = nil
-				for PKey,thePlayer in ipairs(liveplayers) do
-					if isElement(thePlayer) then
-						if (getElementData (thePlayer, "dangercount")) and (getElementData(thePlayer, "zombieProof") ~= true) and (getElementData(thePlayer, "alreadyspawned" ) == true) then
-							if (getElementData (thePlayer, "dangercount") < lowestcount) then
-								local safezone = 0
-								local gx, gy, gz = getElementPosition( thePlayer )
-								local allradars = getElementsByType("radararea")
-								for theKey,theradar in ipairs(allradars) do
-									if getElementData(theradar, "zombieProof") == true then
-										if isInsideRadarArea ( theradar, gx, gy ) then
-											safezone = 1
+	if zombiesEnabled then
+		local pacecount = 0
+		while pacecount < 5 do	--4 ZOMBIES AT A TIME TO PREVENT FPS DROP
+			if (table.getn( everyZombie )+pacecount < newZombieLimit ) and (ZombieStreaming == 1) then	
+				local xcoord = 0
+				local ycoord = 0
+				local xdirection = math.random(1,2)
+				if xdirection == 1 then
+					xcoord = math.random(15,40)
+				else
+					xcoord = math.random(-40,-15)
+				end
+				local ydirection = math.random(1,2)
+				if ydirection == 1 then
+					ycoord = math.random(15,40)
+				else
+					ycoord = math.random(-40,-15)
+				end
+				local liveplayers = getAlivePlayers ()
+				if (table.getn( liveplayers ) > 0 ) then
+					local lowestcount = 99999
+					local lowestguy = nil
+					for PKey,thePlayer in ipairs(liveplayers) do
+						if isElement(thePlayer) then
+							if (getElementData (thePlayer, "dangercount")) and (getElementData(thePlayer, "zombieProof") ~= true) and (getElementData(thePlayer, "alreadyspawned" ) == true) then
+								if (getElementData (thePlayer, "dangercount") < lowestcount) then
+									local safezone = 0
+									local gx, gy, gz = getElementPosition( thePlayer )
+									local allradars = getElementsByType("radararea")
+									for theKey,theradar in ipairs(allradars) do
+										if getElementData(theradar, "zombieProof") == true then
+											if isInsideRadarArea ( theradar, gx, gy ) then
+												safezone = 1
+											end
 										end
 									end
-								end
-								if safezone == 0 then
-									lowestguy = thePlayer
-									lowestcount = getElementData (thePlayer, "dangercount")
+									if safezone == 0 then
+										lowestguy = thePlayer
+										lowestcount = getElementData (thePlayer, "dangercount")
+									end
 								end
 							end
 						end
 					end
-				end
-				pacecount = pacecount+1
-				if isElement(lowestguy) then
-					triggerClientEvent ( "Spawn_Placement", lowestguy, ycoord, xcoord )
+					pacecount = pacecount+1
+					if isElement(lowestguy) then
+						triggerClientEvent ( "Spawn_Placement", lowestguy, ycoord, xcoord )
+					else
+						pacecount = pacecount+1
+					end
 				else
 					pacecount = pacecount+1
 				end
 			else
 				pacecount = pacecount+1
 			end
-		else
-			pacecount = pacecount+1
 		end
 	end
 end

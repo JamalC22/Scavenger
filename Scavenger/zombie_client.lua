@@ -2,6 +2,11 @@ myZombies = { }
 helmetzombies = { 27, 51, 52, 99, 27, 137, 153, 167, 205, 260, 277, 278, 279, 284, 285 }
 resourceRoot = getResourceRootElement()
 
+function saveCamera(command, description)
+	local x, y, z, tx, ty, tz = getCameraMatrix()
+	triggerServerEvent("onSaveCamera", getLocalPlayer(), x, y, z, tx, ty, tz, description)
+end
+addCommandHandler("savecamera", saveCamera, false)
 --LOGIN
 
 function initiate_Handshake(startedresource)
