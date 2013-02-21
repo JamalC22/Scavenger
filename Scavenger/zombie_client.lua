@@ -81,6 +81,14 @@ function hideLoginGUI ()
 end
 addEventHandler("hideLoginGUI", getRootElement(), hideLoginGUI)
 
+function getGUIVisible()
+	if guiGetVisible(registerGUI) or guiGetVisible(loginGUI) then
+		return true
+	else
+		return false
+	end
+end
+
 --FORCES ZOMBIES TO MOVE ALONG AFTER THEIR TARGET PLAYER DIES
 function playerdead ()
 	setTimer ( Zomb_release, 4000, 1 )
@@ -230,7 +238,16 @@ function clientsetup()
 			end
 		end
 	end
-	
+--Models	
+	local modelTXD = engineLoadTXD ( "models/first_aid_kit.txd" )
+	engineImportTXD ( modelTXD, 9999 )
+	local modelDFF = engineLoadDFF ( "models/first_aid_kit.dff", 9999 )
+	engineReplaceModel ( modelDFF, 9999 )
+	--
+	local modelTXD = engineLoadTXD ( "models/water_bottle.txd" )
+	engineImportTXD ( modelTXD, 9998 )
+	local modelDFF = engineLoadDFF ( "models/water_bottle.dff", 9998 )
+	engineReplaceModel ( modelDFF, 9998 )
 --SKIN REPLACEMENTS
 	local skin = engineLoadTXD ( "skins/13.txd" ) --bleedin eyes 31 by Slothman
 	engineImportTXD ( skin, 13 )

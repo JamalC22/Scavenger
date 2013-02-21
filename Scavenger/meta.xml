@@ -11,7 +11,12 @@
 	<script src="scavenger_spawns.lua" />
 	<script src="zombie_server.lua" />
 	<script src="zombie_client.lua" type="client"/>
+	<script src="scavenger_clientrender.lua" type="client"/>
 	<file src="zombiewood.png" />
+	<file src="models/first_aid_kit.dff" />
+	<file src="models/first_aid_kit.txd" />
+	<file src="models/water_bottle.dff" />
+	<file src="models/water_bottle.txd" />
 	<file src="skins/13.txd" />
 	<file src="skins/22.txd" />
 	<file src="skins/56.txd" />
@@ -57,6 +62,10 @@
 	<file src="sounds/mgroan9.ogg" />
 	<file src="sounds/mgroan10.ogg" />
 	<file src="edf/zombiespawn.png" />
+	<file src="edf/health.png" />
+	<file src="edf/ammo.png" />
+	<file src="edf/thirst.png" />
+	<file src="edf/hunger.png" />
 	<export function="createZombie" type="server"/>
 	<export function="isPedZombie" type="server"/>
 </meta>

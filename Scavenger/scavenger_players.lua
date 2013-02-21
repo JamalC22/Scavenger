@@ -126,7 +126,6 @@ CameraSpawns =
 		ty = 390.84060668945,
 		tz = 35.740619659424,
 	},
-	---,,,,,
 	{
 		sx = 1921.2277832031,
 		sy = 332.35418701172,
@@ -194,12 +193,68 @@ SFSpawns =
 	},
 }
 
+function players_UpdateClient()
+	local players = getAlivePlayers()
+	for playerKey, playerValue in ipairs(players) do
+		if playerKey and playerValue then
+			local maxWeaponAmmo = getWeaponProperty ( getPedWeapon(playerValue), "poor", "maximum_clip_ammo")
+			if maxWeaponAmmo then
+				triggerClientEvent(playerValue, "updateAmmo", playerValue, (getPedAmmoInClip(playerValue) / maxWeaponAmmo) * 100)
+			else
+				triggerClientEvent(playerValue, "updateAmmo", playerValue, false)
+			end
+			local currentThirst = getElementData(playerValue, "thirst")
+			if currentThirst then
+				triggerClientEvent(playerValue, "updateThirst", playerValue, currentThirst)
+			end
+			local currentHunger = getElementData(playerValue, "hunger")
+			if currentHunger then
+				triggerClientEvent(playerValue, "updateHunger", playerValue, currentHunger)
+			end
+		end
+	end
+end
+setTimer(players_UpdateClient, 500, 0)
+
+function players_UpdateThirst()
+	local players = getAlivePlayers()
+	for playerKey, playerValue in ipairs(players) do
+		local currentThirst = getElementData(playerValue, "thirst")
+		if currentThirst then
+			if currentThirst <= 0 then
+				killPed(playerValue)
+			else
+				triggerClientEvent(playerValue, "updateThirst", playerValue, currentThirst)
+				setElementData(playerValue, "thirst", math.max(0, currentThirst - 1))
+			end
+		end
+	end
+end
+setTimer(players_UpdateThirst, 18000, 0)
+
+function players_UpdateHunger()
+	local players = getAlivePlayers()
+	for playerKey, playerValue in ipairs(players) do
+		local currentHunger = getElementData(playerValue, "hunger")
+		if currentHunger then
+			if currentHunger <= 0 then
+				killPed(playerValue)
+			else
+				triggerClientEvent(playerValue, "updateHunger", playerValue, currentHunger)
+				setElementData(playerValue, "hunger", math.max(0, currentHunger - 1))
+			end
+		end
+	end
+end
+setTimer(players_UpdateHunger, 18000, 0)
+
 function player_Handshake(playerName)
 	--Disable HUD
-	showPlayerHudComponent(source, "clock", false)
-	showPlayerHudComponent(source, "vehicle_name", false)
-	showPlayerHudComponent(source, "radar", false)
-	showPlayerHudComponent(source, "area_name", false)
+	--showPlayerHudComponent(source, "clock", false)
+	--showPlayerHudComponent(source, "vehicle_name", false)
+	--showPlayerHudComponent(source, "radar", false)
+	--showPlayerHudComponent(source, "area_name", false)
+	showPlayerHudComponent(source, "all", false)
 	--Set Cameras
 	local camera = CameraSpawns[math.random(table.getn(CameraSpawns))]
 	fadeCamera(source, true, 5)
@@ -242,13 +297,13 @@ function onAttemptLogin(name, password)
 			loadPlayer(account)
 			triggerClientEvent(source, "hideLoginGUI", getRootElement())
 		else
-			outputChatBox("Invalid password")
+			outputChatBox("Invalid password", source)
 		end
 	end
 end
 addEventHandler("onAttemptLogin", getRootElement(), onAttemptLogin)
 
-function playerKilled(totalAmmo, killer, killerWeapon, bodypart)
+function playerKilled(source, totalAmmo, killer, killerWeapon, bodypart)
 	local x, y, z = getElementPosition(source)
 	for index = 0, 12, 1 do	
 		local weaponID = getPedWeapon(source, index)
@@ -270,12 +325,18 @@ function playerKilled(totalAmmo, killer, killerWeapon, bodypart)
 			end
 		end
 	end
+	setElementData(source, "thirst", 100)
 	setElementData(source, "model", PlayerSkins[math.random(table.getn(PlayerSkins))])
 	finaliseSpawn(source)
 end
-addEventHandler("onPlayerWasted", getRootElement(), playerKilled)
+addEventHandler("onPlayerWasted", getRootElement(), 
+function()
+	
+	setTimer(playerKilled, 6000, 1, source, totalAmmo, killer, killerWeapon, bodypart)
+	fadeCamera ( source, false, 6.0, 171, 21, 21)
+end)
 
-function finaliseSpawn(x, y, z)	
+function finaliseSpawn(source, x, y, z)	
 	if x and y and z then	
 		spawnPlayer(source, x, y, z)
 	else
@@ -288,14 +349,14 @@ function finaliseSpawn(x, y, z)
 		elseif city == 2 then	
 			spawn = SFSpawns[math.random(table.getn(SFSpawns))]
 		end
-                spawnPlayer(source, spawn.x, spawn.y, spawn.z)
+        spawnPlayer(source, spawn.x, spawn.y, spawn.z)
 	end
 	setElementModel(source, getElementData(source, "model"))
 	fadeCamera(source, true)
 	setCameraTarget(source, source)
 end
 
-function savePlayer()	
+function savePlayer()
 	local playeraccount = getPlayerAccount(source)
 	if playeraccount and not
 	isGuestAccount(playeraccount) then	
@@ -335,6 +396,24 @@ function savePlayer()
 		else
 			setAccountData(playeraccount, "zombies.playermodel", 7)
 		end
+		local playerMedkits = getElementData(source, "medkits")
+		if playerMedkits then	
+			setAccountData(playeraccount, "zombies.playermedkits", playerMedkits)
+		else
+			setAccountData(playeraccount, "zombies.playermedkits", 0)
+		end
+		local playerThirst = getElementData(source, "thirst")
+		if playerThirst then	
+			setAccountData(playeraccount, "zombies.playerthirst", playerThirst)
+		else
+			setAccountData(playeraccount, "zombies.playerthirst", 100)
+		end
+		local playerHunger = getElementData(source, "hunger")
+		if playerHunger then	
+			setAccountData(playeraccount, "zombies.playerhunger", playerHunger)
+		else
+			setAccountData(playeraccount, "zombies.playerhunger", 100)
+		end
 	end
 	logOut(source)
 end
@@ -355,9 +434,9 @@ function loadPlayer(account)
 			local y = getAccountData(account, "zombies.pY")
 			local z = getAccountData(account, "zombies.pZ")
 			if x and y and z then	
-				finaliseSpawn(x, y, z + 2)
+				finaliseSpawn(player, x, y, z + 2)
 			else
-				finaliseSpawn()
+				finaliseSpawn(player)
 			end
 			for index = 0, 12, 1 do	
 				local weaponID = getAccountData(account, "zombies.weaponid" .. index)
@@ -374,6 +453,43 @@ function loadPlayer(account)
 			if (playerMoney) then	
 				setPlayerMoney(player, playerMoney)
 			end
+			local playerMedkits = getAccountData(account, "zombies.playermedkits")
+			if (playerMedkits) then	
+				setElementData(player, "medkits", playerMedkits)
+			else
+				setElementData(player, "medkits", 0)
+			end
+			local playerThirst = getAccountData(account, "zombies.playerthirst")
+			if (playerThirst) then	
+				setElementData(player, "thirst", playerThirst)
+			else
+				setElementData(player, "thirst", 100)
+			end
+			local playerHunger = getAccountData(account, "zombies.playerhunger")
+			if (playerHunger) then	
+				setElementData(player, "hunger", playerHunger)
+			else
+				setElementData(player, "hunger", 100)
+			end
 		end
 	end
 end
+
+function onPickupCollision(pickup)
+	--might be better way to get type
+	local pickupType = getElementModel(pickup)
+	--medkit
+	if pickupType == 9999 then
+		medkitCount = getElementData(source, "medkits")
+		if medkitCount < 3 then
+			outputChatBox("Found a medkit, you now have " .. medkitCount + 1 .. ".", source)
+			setElementData(source, "medkits", medkitCount + 1)
+		else
+			outputChatBox("You can only hold 3 medkits.", source)
+		end
+	elseif pickupType == 9998 then
+		setElementData(source, "thirst", 100)
+		setElementData(source, "hunger", 100)
+	end
+end
+addEventHandler("onPlayerPickupUse", getRootElement(), onPickupCollision)

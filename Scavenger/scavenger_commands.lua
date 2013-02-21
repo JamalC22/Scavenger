@@ -1,5 +1,50 @@
 addEvent("onSaveCamera", true)
 
+function createSupply(playerSource, command, kind)
+	if playerSource and kind then
+		local x, y, z = getElementPosition(playerSource)
+		if kind == "water" then
+			createPickup(x + 2, y, z, 3, 9998, 150000000)
+		elseif kind == "meds" then
+			createPickup(x + 2, y, z, 3, 9999, 150000000)
+		end
+	end
+end
+addCommandHandler("supply", createSupply)
+
+function useMedkit(playerSource, command, targetName)
+	if playerSource then
+		medkitCount = getElementData(playerSource, "medkits")
+		if medkitCount > 0 then
+			setElementData(playerSource, "medkits", medkitCount - 1)
+			local healAmount = 25 + math.random(5, 10)
+			if targetName then
+				local targetPlayer = getPlayerFromName(targetName)
+				if targetPlayer then
+					x1, y1, z1 = getElementPosition(playerSource)
+					x2, y2, z2 = getElementPosition(targetPlayer)
+					local distance = getDistanceBetweenPoints3D(x1, y1, z1, x2, y2, z2)
+					if distance <= 5 then
+						setElementHealth(targetPlayer, math.min(100, getElementHealth(playerSource) + healAmount))
+						outputChatBox("You heal " .. targetName .. " by " .. healAmount .. "% you now have " .. medkitCount - 1 .. " medkits.", playerSource)
+						outputChatBox(getPlayerName(playerSource) .. " healed you by " .. healAmount .. "% with a medkit.", targetPlayer)
+					else
+						outputChatBox(targetName .. " is too far away.", playerSource)
+					end
+				else 
+					outputChatBox(targetName .. " could not be found.", playerSource)
+				end
+			else
+				setElementHealth(playerSource, math.min(100, getElementHealth(playerSource) + healAmount))
+				outputChatBox("You heal yourself by " .. healAmount .. "% you now have " .. medkitCount - 1 .. " medkits.", playerSource)
+			end
+		else
+			outputChatBox("You have no medkits.", playerSource)
+		end
+	end
+end
+addCommandHandler("medkit", useMedkit)
+
 function saveSpawn(playerSource, command, kind, description)
 	if playerSource then
 		if kind and description then
@@ -67,7 +112,6 @@ function teleportPlayer(playerSource, command, playerName)
 		end
 	end
 end
-
 addCommandHandler("teleplayer", teleportPlayer, false, false)
 
 function locPlayer(playerSource, command, playerName)	
@@ -113,7 +157,6 @@ function spawnWeapon(playerSource, command, weaponID, weaponAmmo)
             outputChatBox("Syntax: /spawnwep [ID] [AMMO]", playerSource)
         end
 end
-
 addCommandHandler("spawnwep", spawnWeapon, false, false)
 
 function spawnCar(playerSource, command, vehID, aaa)	
@@ -129,5 +172,4 @@ function spawnCar(playerSource, command, vehID, aaa)
             outputChatBox("Syntax: /spawncar [ID]", playerSource)
         end
 end
-
 addCommandHandler("spawncar", spawnCar, false, false)
