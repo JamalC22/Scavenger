@@ -66,6 +66,7 @@
 	<file src="edf/ammo.png" />
 	<file src="edf/thirst.png" />
 	<file src="edf/hunger.png" />
+	<file src="edf/thermo.png" />
 	<export function="createZombie" type="server"/>
 	<export function="isPedZombie" type="server"/>
 </meta>

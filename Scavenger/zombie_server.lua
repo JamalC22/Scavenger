@@ -26,6 +26,10 @@ zombiesEnabled = true
 function toggleZombies(playerSource, command)	
 	if zombiesEnabled then
 		zombiesEnabled = false
+		for theKey,thePed in ipairs(everyZombie) do
+			table.remove( everyZombie, theKey )
+			outputChatBox("Removed a zombie")	
+		end
 		outputChatBox("Zombies disabled")
 	else
 		zombiesEnabled = true
@@ -226,7 +230,7 @@ end)
 
 --RESOURCE START/INITIAL SETUP
 function outbreak(startedResource)
-	newZombieLimit = 200
+	newZombieLimit = 2000
 	WoodTimer = setTimer ( WoodSetup, 2000, 1) -- CHECKS FOR BARRIERS
 	if startedResource == getThisResource() then
 --		call(getResourceFromName("scoreboard"), "scoreboardAddColumn", "Zombie kills") --ADDS TO SCOREBOARD

@@ -4,9 +4,9 @@ function createSupply(playerSource, command, kind)
 	if playerSource and kind then
 		local x, y, z = getElementPosition(playerSource)
 		if kind == "water" then
-			createPickup(x + 2, y, z, 3, 9998, 150000000)
+			createPickup(x + 5, y, z, 3, 9998)
 		elseif kind == "meds" then
-			createPickup(x + 2, y, z, 3, 9999, 150000000)
+			createPickup(x + 5, y, z, 3, 9999)
 		end
 	end
 end
@@ -103,9 +103,14 @@ addCommandHandler("changeskin", changeSkin)
 function teleportPlayer(playerSource, command, playerName)	
 	if playerSource and playerName then	
 		local targetPlayer = getPlayerFromName(playerName)
-		if (targetPlayer) then	
+		if (targetPlayer) then
 			local x, y, z = getElementPosition(targetPlayer)
-                        setElementPosition ( playerSource, x, y, z + 3, true )
+			if isPedInVehicle(playerSource) then
+				setElementPosition ( getPedOccupiedVehicle(playerSource), x, y, z + 5, true )
+			else	
+				setElementPosition ( playerSource, x, y, z + 3, true )
+			end
+            
 			outputChatBox("Teleported", playerSource)
 		else
 			outputChatBox("Could not find player", playerSource)

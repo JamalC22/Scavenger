@@ -211,6 +211,16 @@ function players_UpdateClient()
 			if currentHunger then
 				triggerClientEvent(playerValue, "updateHunger", playerValue, currentHunger)
 			end
+			if isPedOnFire(playerValue) then
+				triggerClientEvent(playerValue, "updateTemperature", playerValue, 100)
+			elseif isPedInWater(playerValue) then
+				triggerClientEvent(playerValue, "updateTemperature", playerValue, 0)
+			else
+				triggerClientEvent(playerValue, "updateTemperature", playerValue, 50)
+			end
+			if isPedInVehicle(playerValue) then
+				triggerClientEvent(playerValue, "updateVehicleFuel", playerValue, 70)
+			end
 		end
 	end
 end
@@ -223,7 +233,7 @@ function players_UpdateThirst()
 		if currentThirst then
 			if currentThirst <= 0 then
 				killPed(playerValue)
-			else
+			elseif math.random(100) <= 65 then
 				triggerClientEvent(playerValue, "updateThirst", playerValue, currentThirst)
 				setElementData(playerValue, "thirst", math.max(0, currentThirst - 1))
 			end
@@ -239,7 +249,7 @@ function players_UpdateHunger()
 		if currentHunger then
 			if currentHunger <= 0 then
 				killPed(playerValue)
-			else
+			elseif math.random(100) <= 65 then
 				triggerClientEvent(playerValue, "updateHunger", playerValue, currentHunger)
 				setElementData(playerValue, "hunger", math.max(0, currentHunger - 1))
 			end
@@ -250,10 +260,6 @@ setTimer(players_UpdateHunger, 18000, 0)
 
 function player_Handshake(playerName)
 	--Disable HUD
-	--showPlayerHudComponent(source, "clock", false)
-	--showPlayerHudComponent(source, "vehicle_name", false)
-	--showPlayerHudComponent(source, "radar", false)
-	--showPlayerHudComponent(source, "area_name", false)
 	showPlayerHudComponent(source, "all", false)
 	--Set Cameras
 	local camera = CameraSpawns[math.random(table.getn(CameraSpawns))]
@@ -296,6 +302,7 @@ function onAttemptLogin(name, password)
 			logIn(source, account, password)
 			loadPlayer(account)
 			triggerClientEvent(source, "hideLoginGUI", getRootElement())
+			setWeather(source, 9)
 		else
 			outputChatBox("Invalid password", source)
 		end
@@ -325,13 +332,13 @@ function playerKilled(source, totalAmmo, killer, killerWeapon, bodypart)
 			end
 		end
 	end
+	setElementData(source, "hunger", 100)
 	setElementData(source, "thirst", 100)
 	setElementData(source, "model", PlayerSkins[math.random(table.getn(PlayerSkins))])
 	finaliseSpawn(source)
 end
 addEventHandler("onPlayerWasted", getRootElement(), 
 function()
-	
 	setTimer(playerKilled, 6000, 1, source, totalAmmo, killer, killerWeapon, bodypart)
 	fadeCamera ( source, false, 6.0, 171, 21, 21)
 end)
@@ -476,7 +483,7 @@ function loadPlayer(account)
 end
 
 function onPickupCollision(pickup)
-	--might be better way to get type
+	--might be a better way to get type
 	local pickupType = getElementModel(pickup)
 	--medkit
 	if pickupType == 9999 then
@@ -487,6 +494,7 @@ function onPickupCollision(pickup)
 		else
 			outputChatBox("You can only hold 3 medkits.", source)
 		end
+	--water
 	elseif pickupType == 9998 then
 		setElementData(source, "thirst", 100)
 		setElementData(source, "hunger", 100)
