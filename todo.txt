@@ -1,11 +1,9 @@
-[4] Make hunger/thirst system
 [4] Add weapon/ammo/food/thirst spawns through the map
 [3] Add vehicle spawns
 [3] Add admin tools
-[2] Make new medical items
+[3] Make temperature/weather system
 [2] Make new food/water items
 [2] Add fuel system for cars.
-[2] Add ammunation interior to purchase guns with earned money
 [1] Make Vehicles Lockable
 [1] Make Classes
 	- Mechanic Class that can repair cars and break into locked ones
